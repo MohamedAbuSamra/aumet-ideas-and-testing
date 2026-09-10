@@ -810,22 +810,510 @@ const codeTemplates = {
 };
 
 
+/* ── js/templates/website-templates.js ── */
+/** Pixel HTML — Pulse POS (`Index.vue`) for the website surface. */
+
+const icoSearch = `<svg class="pw-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="m16 16 4.2 4.2"/></svg>`;
+
+const icoBarcode = `<svg class="pw-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h1.4v14H3V5Zm3.2 0h.9v14h-.9V5Zm2.3 0h1.8v14H8.5V5Zm3.1 0h.9v14h-.9V5Zm2.2 0h1.4v14h-1.4V5Zm2.5 0h.9v14h-.9V5Zm2.1 0H21v14h-1.4V5Z"/></svg>`;
+
+const icoUser = `<svg class="pw-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M5.5 19.2a6.6 6.6 0 0 1 13 0"/></svg>`;
+
+const icoBell = `<svg class="pw-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M6.2 16.5h11.6M7.2 16.2V11a4.8 4.8 0 1 1 9.6 0v5.2M10 16.5v1.2a2 2 0 0 0 4 0v-1.2"/></svg>`;
+
+const icoMenu = `<svg class="pw-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14"/></svg>`;
+
+const icoStar = `<svg class="pw-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="m12 4.4 2.2 4.5 5 .7-3.6 3.5.9 4.9L12 15.7 7.5 18l.9-4.9L4.8 9.6l5-.7L12 4.4Z"/></svg>`;
+
+const icoPlus = `<svg class="pw-ico pw-ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>`;
+
+const icoTrash = `<svg class="pw-ico pw-ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M5 7.5h14M9.5 7.5V6a1.5 1.5 0 0 1 1.5-1.5h2A1.5 1.5 0 0 1 14.5 6v1.5M8 7.5l.7 11a1.5 1.5 0 0 0 1.5 1.4h4.6a1.5 1.5 0 0 0 1.5-1.4l.7-11"/></svg>`;
+
+const icoColumns = `<svg class="pw-ico pw-ico-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="4.2" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="10" y="5" width="4.2" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="16" y="5" width="4.2" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>`;
+
+const icoSelling = `<svg class="pw-ico pw-ico-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="4.2" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="4" y="11.4" width="16" height="4.2" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="4" y="17.8" width="16" height="1.4" rx=".7" fill="currentColor"/></svg>`;
+
+const icoDetailed = `<svg class="pw-ico pw-ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M5 7h14M5 12h14M5 17h10"/></svg>`;
+
+const icoMinus = `<svg class="pw-ico pw-ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 12h12"/></svg>`;
+
+const icoDose = `<svg class="pw-ico pw-ico-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M8 8h8M8 11.5h8M8 15h5"/></svg>`;
+
+const icoClose = `<svg class="pw-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M7 7l10 10M17 7 7 17"/></svg>`;
+
+const icoPrint = `<svg class="pw-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M7 9V4.8h10V9"/><rect x="6" y="13" width="12" height="6.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" d="M6 12H4.5A1.5 1.5 0 0 1 3 10.5v-1A1.5 1.5 0 0 1 4.5 8h15A1.5 1.5 0 0 1 21 9.5v1a1.5 1.5 0 0 1-1.5 1.5H18"/></svg>`;
+
+function pwNav(active) {
+  const navClass = (key) => (active === key ? " is-active" : "");
+  return `
+      <header class="pw-nav">
+        <div class="pw-brand">
+          <span class="pw-pulse-mark" aria-hidden="true"></span>
+          <span class="pw-pulse-word">Pulse</span>
+        </div>
+        <nav class="pw-nav-links" aria-label="Main">
+          <span>Dashboard</span>
+          <button type="button" class="pw-nav-link${navClass("pos")}" data-goto="pos-index">POS</button>
+          <span>Inventory</span>
+          <span>Reports</span>
+          <button type="button" class="pw-nav-link${navClass("settings")}" data-goto="print-config">Settings</button>
+        </nav>
+        <div class="pw-nav-end">
+          <button type="button" class="pw-nav-ico" aria-label="Notifications">${icoBell}</button>
+          <span class="pw-avatar" aria-hidden="true">SA</span>
+        </div>
+      </header>`;
+}
+
+function pwCartRow({ n, id, name, sku, stock, expiry, uom, qty, price, sub, profit, total }) {
+  return `
+    <tr data-dose-row="${id}">
+      <td class="pw-num">${n}</td>
+      <td>
+        <div class="pw-product">
+          <span class="pw-product-name">${name}</span>
+          <span class="pw-product-sku">${sku}</span>
+        </div>
+      </td>
+      <td>${stock}</td>
+      <td>${expiry}</td>
+      <td>${uom}</td>
+      <td>
+        <div class="pw-qty">
+          <button type="button" class="pw-qty-btn" aria-label="Decrease">${icoMinus}</button>
+          <span class="pw-qty-val">${qty}</span>
+          <button type="button" class="pw-qty-btn" aria-label="Increase">${icoPlus}</button>
+        </div>
+      </td>
+      <td class="pw-money">${price}</td>
+      <td class="pw-money">0.000</td>
+      <td class="pw-money">${sub}</td>
+      <td class="pw-money pw-profit">${profit}</td>
+      <td class="pw-money">0.000</td>
+      <td class="pw-money pw-total">${total}</td>
+      <td class="pw-actions">
+        <button type="button" class="pw-icon-btn" data-print-row="${id}" aria-label="Print dosage">${icoPrint}</button>
+        <button type="button" class="pw-icon-btn" aria-label="Remove">${icoTrash}</button>
+      </td>
+    </tr>`;
+}
+
+const websiteTemplates = {
+  "pos-index": `
+    <div class="pw" data-feature-canvas="pos-index">
+      ${pwNav("pos")}
+
+      <div class="pw-body">
+        <div class="pw-invoice-row">
+          <div class="pw-invoice-tabs">
+            <span class="pw-sale-chip is-active">Sale #1</span>
+            <button type="button" class="pw-add-sale" aria-label="Add invoice">${icoPlus}</button>
+          </div>
+          <div class="pw-invoice-actions">
+            <button type="button" class="pw-btn-outline">${icoMenu} More</button>
+            <button type="button" class="pw-btn-outline">${icoStar} Favourites</button>
+          </div>
+        </div>
+
+        <div class="pw-search-row">
+          <div class="pw-search">
+            ${icoSearch}
+            <input type="text" placeholder="Search for products by name or scan barcode (F2)" aria-label="Product search" />
+            <button type="button" class="pw-barcode" aria-label="Scan barcode">${icoBarcode}</button>
+          </div>
+          <div class="pw-customer is-filled">
+            ${icoUser}
+            <span class="pw-customer-chip">Ahmad Al-Khatib</span>
+          </div>
+        </div>
+
+        <section class="pw-card">
+          <div class="pw-tx-head">
+            <div class="pw-tx-title">Sale #1</div>
+            <div class="pw-tx-tools">
+              <div class="pw-seg" role="group" aria-label="Cart columns">
+                <button type="button" class="pw-seg-btn">${icoSelling} Selling</button>
+                <button type="button" class="pw-seg-btn is-on">${icoDetailed} Detailed</button>
+              </div>
+              <button type="button" class="pw-btn-ghost">${icoColumns} Edit columns</button>
+              <button type="button" class="pw-btn-ghost pw-btn-dose" data-print-all-dosages>
+                ${icoPrint} Print dosages
+              </button>
+              <label class="pw-discount">
+                <span>%</span>
+                <input type="text" placeholder="Discount" aria-label="Discount" />
+              </label>
+              <button type="button" class="pw-btn-danger">Clear Cart</button>
+            </div>
+          </div>
+
+          <div class="pw-cart">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th class="pw-th-product">Product</th>
+                  <th>Stock</th>
+                  <th>Expiry</th>
+                  <th>UOM</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>Discount</th>
+                  <th>Subtotal</th>
+                  <th>Profit</th>
+                  <th>Tax</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                ${pwCartRow({
+                  n: 1,
+                  id: "panadol",
+                  name: "Panadol Extra 500mg",
+                  sku: "SKU · 6281078000123",
+                  stock: "48",
+                  expiry: "12/2027",
+                  uom: "Tab",
+                  qty: 2,
+                  price: "3.500",
+                  sub: "7.000",
+                  profit: "1.200",
+                  total: "7.000",
+                })}
+                ${pwCartRow({
+                  n: 2,
+                  id: "brufen",
+                  name: "Brufen 400mg",
+                  sku: "SKU · 6251157030149",
+                  stock: "24",
+                  expiry: "06/2026",
+                  uom: "Tab",
+                  qty: 1,
+                  price: "4.250",
+                  sub: "4.250",
+                  profit: "0.850",
+                  total: "4.250",
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <footer class="pw-summary">
+          <div class="pw-sum-label">Summary</div>
+          <div class="pw-sum-counts">
+            <div><span>Number of products</span><strong>2</strong></div>
+            <div><span>Total products qty</span><strong>3</strong></div>
+          </div>
+          <div class="pw-sum-fin">
+            <div><span>Discount</span><strong class="pw-neg">-0.000</strong></div>
+            <div><span>Subtotal</span><strong>11.250</strong></div>
+            <div><span>Tax</span><strong>0.000</strong></div>
+          </div>
+          <div class="pw-sum-total">
+            <span>Total</span>
+            <strong>11.250 JOD</strong>
+            <em>Total profit: 2.050</em>
+          </div>
+          <div class="pw-sum-cta">
+            <label class="pw-print-check">
+              <input type="checkbox" checked data-print-on-complete />
+              Print dosage labels
+            </label>
+            <button type="button" class="pw-complete" data-complete-sale>Complete Sale</button>
+          </div>
+        </footer>
+      </div>
+
+      <div class="pw-sheet" id="pw-dosage-sheet" hidden>
+        <button type="button" class="pw-sheet-backdrop" data-dosage-close aria-label="Dismiss"></button>
+        <div class="pw-sheet-panel pw-dose-panel" role="dialog" aria-modal="true" aria-labelledby="pw-dosage-title">
+          <div class="pw-sheet-head">
+            <div>
+              <p class="pw-sheet-kicker">Print dosage</p>
+              <h2 id="pw-dosage-title" data-dose-name>Panadol Extra 500mg</h2>
+              <p class="pw-sheet-meta"><span data-dose-form>Tablet · 500 mg</span> · Qty <span data-dose-qty>2</span> · Ahmad Al-Khatib</p>
+            </div>
+            <button type="button" class="pw-nav-ico" data-dosage-close aria-label="Close">${icoClose}</button>
+          </div>
+
+          <div class="pw-dose-products" data-dose-products></div>
+
+          <div class="pw-dose-body" data-dose-pick-pane>
+            <div class="pw-search pw-search-compact">
+              ${icoSearch}
+              <input type="search" data-dose-filter placeholder="Find a dosage" aria-label="Search saved dosages" />
+            </div>
+            <div class="pw-combo-list" data-dose-options role="listbox" aria-label="Saved dosages"></div>
+          </div>
+
+          <div class="pw-dose-chosen" data-dose-chosen hidden>
+            <div>
+              <p class="pw-sheet-kicker">Dosage</p>
+              <strong data-dose-chosen-title></strong>
+              <span data-dose-chosen-text></span>
+            </div>
+            <button type="button" class="pw-link" data-dose-change>Change</button>
+          </div>
+
+          <div class="pw-dose-write" data-dose-write-pane hidden>
+            <div class="pw-dose-write-head">
+              <p class="pw-sheet-kicker">Write for this sale</p>
+              <button type="button" class="pw-link" data-dose-change>Saved dosages</button>
+            </div>
+            <textarea data-dose-text rows="3" placeholder="Take 1 tablet after food."></textarea>
+          </div>
+
+          <div class="pw-preview-frame pw-dose-preview" data-dose-preview-wrap>
+            <p class="pw-preview-label">Print preview</p>
+            <div data-dose-preview-host></div>
+          </div>
+
+          <div class="pw-sheet-foot pw-sheet-foot-block">
+            <button type="button" class="pw-complete pw-btn-block" data-dose-print disabled>
+              ${icoPrint} <span data-dose-print-label>Print</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pw-toast" data-dose-toast hidden>Sent to printer</div>
+    </div>`,
+
+  "dosage-library": `
+    <div class="pw pw-settings" data-feature-canvas="dosage-library">
+      ${pwNav("settings")}
+      <div class="pw-body">
+        <div class="pw-page pw-page-lib">
+          <p class="pw-crumb">Settings · Dosage labels</p>
+          <div class="pw-page-head">
+            <div>
+              <h1 class="pw-page-title">Dosage labels</h1>
+              <p class="pw-page-desc">Phrases cashiers print on a sale. Click a row to edit it in place.</p>
+            </div>
+            <button type="button" class="pw-complete pw-complete-inline" data-lib-add>${icoPlus} Add</button>
+          </div>
+          <div class="pw-lib-board">
+            <div class="pw-lib-toolbar">
+              <div class="pw-search">
+                ${icoSearch}
+                <input type="search" data-lib-search placeholder="Find a dosage" aria-label="Search dosage labels" />
+                <button type="button" class="pw-search-clear" data-lib-search-clear hidden aria-label="Clear search">×</button>
+              </div>
+              <span class="pw-lib-count" data-lib-count aria-live="polite"></span>
+            </div>
+            <div class="pw-lib-scroll" data-lib-scroll>
+              <div class="pw-lib-list" data-lib-list></div>
+              <div class="pw-lib-empty" data-lib-empty hidden>
+                <p>No dosage labels yet</p>
+                <span>Add the first phrase cashiers will print.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pw-print" data-lib-delete-dialog hidden>
+        <div class="pw-print-card pw-confirm-card" role="dialog" aria-modal="true" aria-labelledby="pw-lib-delete-title">
+          <p class="pw-sheet-kicker">Delete label</p>
+          <h2 id="pw-lib-delete-title">Remove this dosage label?</h2>
+          <p class="pw-confirm-copy">“<span data-lib-delete-name></span>” will leave the library.</p>
+          <div class="pw-sheet-foot">
+            <button type="button" class="pw-btn-outline" data-lib-delete-cancel>Keep it</button>
+            <button type="button" class="pw-btn-danger pw-btn-danger-lg" data-lib-delete-confirm>Delete</button>
+          </div>
+        </div>
+      </div>
+      <div class="pw-toast" data-lib-toast hidden>Label saved</div>
+    </div>`,
+
+  "print-config": `
+    <div class="pw pw-settings" data-feature-canvas="print-config">
+      ${pwNav("settings")}
+      <div class="pw-body">
+        <div class="pw-cfg">
+          <h1 class="pw-cfg-title">Receipt and Barcode Configuration</h1>
+          <div class="pw-tabs" role="tablist">
+            <button type="button" class="pw-tab" data-cfg-tab="receipt" role="tab">Receipt Configuration</button>
+            <button type="button" class="pw-tab" data-cfg-tab="barcode" role="tab">Label Templates</button>
+            <button type="button" class="pw-tab is-on" data-cfg-tab="dosage" role="tab">Dosage labels</button>
+          </div>
+
+          <div data-cfg-panel="receipt" hidden>
+            <div class="pw-cfg-grid">
+              <div class="pw-cfg-form">
+                <label class="pw-field"><span>Receipt Header</span><input type="text" value="Ghaidaa Tayseer Pharmacy" /></label>
+                <label class="pw-field"><span>Receipt Footer</span><input type="text" value="Thank you for your visit" /></label>
+                <div class="pw-cfg-checks">
+                  <label class="pw-cfg-check"><input type="checkbox" checked /> Show Logo</label>
+                  <label class="pw-cfg-check"><input type="checkbox" checked /> Show Tax Number</label>
+                  <label class="pw-cfg-check"><input type="checkbox" checked /> Show Address</label>
+                  <label class="pw-cfg-check"><input type="checkbox" checked /> Show Mobile Number</label>
+                </div>
+                <label class="pw-field"><span>Receipt Language</span>
+                  <select><option>Arabic</option><option>English</option></select>
+                </label>
+                <label class="pw-field"><span>Print Size *</span>
+                  <select><option>80mm</option><option>58mm</option></select>
+                </label>
+              </div>
+              <div>
+                <p class="pw-preview-label">Live Preview</p>
+                <div class="pw-cfg-preview-box">
+                  <div class="pw-slip pw-slip-80">
+                    <p class="pw-slip-pharmacy">Ghaidaa Tayseer Pharmacy</p>
+                    <p class="pw-slip-muted">Sale #1042 · 09/09/2026</p>
+                    <p class="pw-slip-line">Panadol Extra 500mg × 2</p>
+                    <p class="pw-slip-total">TOTAL PAID 11.250</p>
+                  </div>
+                </div>
+                <button type="button" class="pw-btn-outline pw-btn-block">${icoPrint} Test Print</button>
+              </div>
+            </div>
+          </div>
+
+          <div data-cfg-panel="barcode" hidden>
+            <h3 class="pw-cfg-section">Templates</h3>
+            <div class="pw-tpl-grid">
+              <article class="pw-tpl-card is-active">
+                <span class="pw-tpl-badge">Active</span>
+                <h4>Standard 2×1</h4>
+                <p>2.00 × 1.00 in · Portrait</p>
+                <p>CODE128 · 12mm</p>
+                <button type="button" class="pw-btn-ghost">Edit</button>
+              </article>
+              <article class="pw-tpl-card">
+                <h4>Square 1×1</h4>
+                <p>1.00 × 1.00 in · Portrait</p>
+                <p>CODE128 · 10mm</p>
+                <button type="button" class="pw-btn-ghost">Edit</button>
+              </article>
+              <article class="pw-tpl-card is-custom">
+                <span class="pw-tpl-badge is-custom">Custom</span>
+                <h4>Shelf talker</h4>
+                <p>3.00 × 1.50 in · Landscape</p>
+                <p>CODE128 · 14mm</p>
+                <button type="button" class="pw-btn-ghost">Edit</button>
+              </article>
+            </div>
+          </div>
+
+          <div data-cfg-panel="dosage">
+            <div data-dosage-tpl-list>
+              <h3 class="pw-cfg-section">Dosage print templates</h3>
+              <p class="pw-page-desc">Choose a template, then save. POS uses the active one when the sale completes.</p>
+              <div class="pw-tpl-grid">
+                <article class="pw-tpl-card is-active" data-dose-tpl="80mm-right" data-dose-tpl-edit="80mm-right">
+                  <span class="pw-tpl-badge">Active</span>
+                  <h4>80mm dosage</h4>
+                  <p>80mm thermal · Right</p>
+                </article>
+                <article class="pw-tpl-card" data-dose-tpl="58mm-left" data-dose-tpl-edit="58mm-left">
+                  <h4>58mm compact</h4>
+                  <p>58mm thermal · Left</p>
+                </article>
+              </div>
+            </div>
+
+            <div class="pw-cfg-grid" data-dosage-tpl-edit hidden>
+              <div class="pw-cfg-form">
+                <button type="button" class="pw-link pw-link-back" data-dose-tpl-back>Back to list</button>
+                <h3 class="pw-cfg-section" data-dose-tpl-heading>Edit template</h3>
+                <label class="pw-field"><span>Template name</span>
+                  <input type="text" data-dose-tpl-name />
+                </label>
+                <label class="pw-field"><span>Print size *</span>
+                  <select data-slip-size>
+                    <option value="80mm">80mm</option>
+                    <option value="58mm">58mm</option>
+                  </select>
+                </label>
+                <label class="pw-field"><span>Alignment</span>
+                  <div class="pw-seg pw-align-seg" role="group" aria-label="Alignment">
+                    <button type="button" class="pw-seg-btn" data-slip-align="left">Left</button>
+                    <button type="button" class="pw-seg-btn is-on" data-slip-align="right">Right</button>
+                    <button type="button" class="pw-seg-btn" data-slip-align="center">Center</button>
+                  </div>
+                </label>
+                <p class="pw-cfg-fields-label">Show on slip</p>
+                <div class="pw-cfg-checks">
+                  <label class="pw-cfg-check"><input type="checkbox" data-slip-field="pharmacyName" checked /> Pharmacy name</label>
+                  <label class="pw-cfg-check"><input type="checkbox" data-slip-field="address" checked /> Address</label>
+                  <label class="pw-cfg-check"><input type="checkbox" data-slip-field="phone" checked /> Pharmacy phone</label>
+                  <label class="pw-cfg-check"><input type="checkbox" data-slip-field="productName" checked /> Product name</label>
+                  <label class="pw-cfg-check"><input type="checkbox" data-slip-field="patientName" checked /> Patient name</label>
+                  <label class="pw-cfg-check"><input type="checkbox" data-slip-field="dosage" checked /> Dosage</label>
+                  <label class="pw-cfg-check"><input type="checkbox" data-slip-field="expiryDate" checked /> Expiry date</label>
+                  <label class="pw-cfg-check"><input type="checkbox" data-slip-field="dispenseDate" checked /> Dispense date</label>
+                  <label class="pw-cfg-check"><input type="checkbox" data-slip-field="pharmacistName" checked /> Pharmacist name</label>
+                </div>
+              </div>
+              <div class="pw-cfg-preview-col">
+                <p class="pw-preview-label">Live Preview</p>
+                <div class="pw-cfg-preview-box" data-slip-preview></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pw-cfg-footer" data-cfg-footer>
+          <button type="button" class="pw-complete pw-complete-inline" data-cfg-save>Save</button>
+        </div>
+      </div>
+      <div class="pw-toast" data-cfg-toast hidden>Configuration saved</div>
+    </div>`,
+};
+
+
 /* ── js/config/scopes.js ── */
 /**
- * Epics = top-level demo cases.
- * Add a new entry here when you start a new flow (Pulse, Login, etc.).
+ * Epics = demo cases, grouped by surface (mobile / website).
+ * Add a new entry under the surface when you start a new case.
  */
 const EPICS = {
-  register: {
-    id: "register",
-    label: "Register",
-    chipClass: "chip-register",
-    description: "Pharmacy registration & complete profile",
+  mobile: {
+    onboarding: {
+      id: "onboarding",
+      label: "Onboarding",
+      chipClass: "chip-onboarding",
+      description: "Pharmacy registration & complete profile",
+    },
+  },
+  website: {
+    pos: {
+      id: "pos",
+      label: "POS",
+      chipClass: "chip-pos",
+      description: "Dosage print setup like receipt and barcode templates, then use it on POS",
+    },
   },
 };
 
-/** @deprecated use EPICS — kept as alias during rename */
-const SCOPES = EPICS;
+function epicsFor(surfaceId) {
+  return EPICS[surfaceId] || {};
+}
+
+function firstEpicId(surfaceId) {
+  return Object.keys(epicsFor(surfaceId))[0] || "";
+}
+
+
+/* ── js/config/surfaces.js ── */
+/**
+ * Surfaces = device preview on the right stage (Mobile phone vs Website).
+ * Mobile keeps the current onboarding; Website is a separate screen list.
+ */
+const SURFACES = {
+  mobile: {
+    id: "mobile",
+    label: "Mobile",
+    description: "Pharmacy registration & complete profile",
+  },
+  website: {
+    id: "website",
+    label: "Website",
+    description: "Website registration — ready for your first screen",
+  },
+};
 
 
 /* ── js/data/signup-screens.js ── */
@@ -904,69 +1392,79 @@ const loginScreens = [
 ];
 
 
+/* ── js/data/website-screens.js ── */
+/**
+ * Website POS screens — static HTML clone of Pulse `/pos` (Index.vue).
+ * Use this as the canvas for new feature UI before handing off to engineering.
+ */
+const websiteScreens = [
+  {
+    id: "print-config",
+    label: "Print setup",
+    epic: "pos",
+    group: "Settings",
+    url: "pulse.aumet.com/settings/receipt-label",
+  },
+  {
+    id: "dosage-library",
+    label: "Dosage labels",
+    epic: "pos",
+    group: "Settings",
+    url: "pulse.aumet.com/settings/dosage-labels",
+  },
+  {
+    id: "pos-index",
+    label: "POS",
+    epic: "pos",
+    group: "Point of sale",
+    url: "pulse.aumet.com/pos",
+  },
+];
+
+
 /* ── js/components/shell.js ── */
 /** App shell markup — sidebar + phone stage */
 function renderShell() {
   return `
   <div class="app">
     <aside class="sidebar" id="sidebar">
+      <header class="sidebar-brand">
+        <img class="sidebar-logo" src="scr/new-sign-up/aumet-logo-white.png" alt="Aumet" />
+        <div class="sidebar-epic-block">
+          <span class="sidebar-kicker">Working on</span>
+          <p class="sidebar-epic-name" id="sidebarEpicName">Onboarding</p>
+          <p class="sidebar-epic-desc" id="sidebarEpicDesc">Pharmacy registration &amp; complete profile</p>
+        </div>
+      </header>
       <div class="panel-stack">
         <div class="panel-view active" id="panelMenu">
-          <div class="panel-top">
-            <h2>Aumet</h2>
-            <p class="panel-sub">Mobile flow demo</p>
-          </div>
-
-          <div class="panel-section">
+          <div class="panel-section" id="epicSection">
             <span class="section-label">Epic</span>
-            <div class="chip-row" id="epicChips">
-              <button type="button" class="chip chip-register active" data-epic="register">Register</button>
-            </div>
+            <div class="chip-row" id="epicChips"></div>
           </div>
 
-          <button type="button" class="steps-entry" id="openSteps">
-            <span class="steps-entry-label">Browse steps</span>
-            <span class="chip chip-count" id="stepCount">0</span>
-            <span class="steps-entry-chevron">›</span>
-          </button>
+          <div class="epic-progress">
+            <span class="flow-progress" id="flowProgress">0 / 0</span>
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          </div>
 
           <div class="nav-row menu-nav-row">
             <button class="btn-prev" id="prevBtn" type="button" aria-label="Previous" disabled>‹</button>
             <button class="btn-next" id="nextBtn" type="button" aria-label="Next" disabled>›</button>
           </div>
 
-          <div class="scope-hint" id="scopeHint">Pharmacy registration &amp; complete profile</div>
-        </div>
-
-        <div class="panel-view" id="panelSteps">
-          <div class="panel-top">
-            <button type="button" class="panel-back" id="backToMenu">‹ Back</button>
-            <div class="steps-head-meta">
-              <div class="steps-head-row">
-                <span class="chip chip-scope chip-register" id="stepsEpicChip">Register</span>
-                <span class="flow-progress" id="flowProgress">0 / 0</span>
-              </div>
-              <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-            </div>
-          </div>
-          <div class="steps-scroll-panel">
-            <ul class="steps-list" id="stepsList"></ul>
-            <div class="steps-empty" id="stepsEmpty">
-              <span class="chip chip-muted">Empty</span>
-              <p>No steps yet. Send your first screen to begin.</p>
-            </div>
-          </div>
-          <div class="panel-steps-foot">
-            <div class="nav-row">
-              <button class="btn-prev" id="prevBtnSteps" type="button" aria-label="Previous" disabled>‹</button>
-              <button class="btn-next" id="nextBtnSteps" type="button" aria-label="Next" disabled>›</button>
-            </div>
-          </div>
+          <div class="scope-hint" id="scopeHint">Mobile · 9 steps</div>
         </div>
       </div>
     </aside>
 
     <main class="stage">
+      <div class="stage-toolbar">
+        <div class="surface-switch" id="surfaceSwitch" role="tablist" aria-label="Preview device">
+          <button type="button" class="surface-btn active" role="tab" data-surface="mobile" aria-selected="true">Mobile</button>
+          <button type="button" class="surface-btn" role="tab" data-surface="website" aria-selected="false">Website</button>
+        </div>
+      </div>
       <div class="stage-inner">
         <div class="phone-column" id="phoneColumn">
           <div class="phone-unit">
@@ -999,6 +1497,24 @@ function renderShell() {
             </div>
           </div>
         </div>
+        <div class="web-column" id="webColumn" hidden>
+          <div class="web-unit">
+            <div class="web-scaler" id="webScaler">
+              <div class="web-browser">
+                <div class="web-chrome">
+                  <span class="web-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <div class="web-url" id="webUrl">pulse.aumet.com/settings/dosage-labels</div>
+                </div>
+                <div class="web-screen" id="webScreen">
+                  <div class="web-empty">
+                    <p class="web-empty-label">Website</p>
+                    <p class="web-empty-hint">Send your first screen to start</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="scope-empty-phone" id="scopeEmptyPhone" hidden>
           <p>Coming soon</p>
         </div>
@@ -1014,12 +1530,28 @@ function renderShell() {
 
 
 
+
+
+
+/** Screens per surface → epic. Add a new epic here when you start a new case. */
 const EPIC_SCREENS = {
-  register: signupScreens,
+  mobile: {
+    onboarding: signupScreens,
+  },
+  website: {
+    pos: websiteScreens,
+  },
 };
 
+const WEB_EMPTY_HTML = `
+  <div class="web-empty">
+    <p class="web-empty-label">Website</p>
+    <p class="web-empty-hint">Send your first screen to start</p>
+  </div>`;
+
 const state = {
-  epic: "register",
+  epic: firstEpicId("mobile"),
+  surface: "mobile",
   viewMode: "code",
   current: 0,
   isPlaying: false,
@@ -1036,14 +1568,19 @@ const MAX_VERIFY_FAILS = 2;
 let els = {};
 
 function activeFlow() {
-  return EPIC_SCREENS[state.epic] || [];
+  return EPIC_SCREENS[state.surface]?.[state.epic] || [];
 }
 
-function shortStepName(s) {
-  return (s.short || s.label.split("—")[0].trim())
-    .replace(/\s*\([^)]*\)\s*/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+function activeEpic() {
+  return epicsFor(state.surface)[state.epic] || null;
+}
+
+function isWebsite() {
+  return state.surface === "website";
+}
+
+function previewRoot() {
+  return isWebsite() ? els.webScreen : els.phoneScreen;
 }
 
 function mountScreens() {
@@ -1051,13 +1588,13 @@ function mountScreens() {
   phoneScreen.innerHTML = "";
 
   const all = [
-    ...signupScreens.map((s) => ({ ...s, flow: "register" })),
+    ...signupScreens.map((s) => ({ ...s, flow: "onboarding" })),
     ...loginScreens.map((s) => ({ ...s, flow: "login" })),
   ];
 
   if (!all.length) {
     phoneScreen.innerHTML = `
-      <div class="screen active" data-screen="empty" data-flow="register">
+      <div class="screen active" data-screen="empty" data-flow="onboarding">
         <div class="screen-code">
           <div class="v2-pending">
             <p class="v2-pending-label">Ready</p>
@@ -1065,6 +1602,7 @@ function mountScreens() {
           </div>
         </div>
       </div>`;
+    mountWebsiteScreens();
     return;
   }
 
@@ -1079,11 +1617,51 @@ function mountScreens() {
     el.innerHTML = `${photo}<div class="screen-code">${codeTemplates[s.id] || ""}</div>`;
     phoneScreen.appendChild(el);
   });
+
+  mountWebsiteScreens();
 }
 
-function showPanel(name) {
-  els.panelMenu.classList.toggle("active", name === "menu");
-  els.panelSteps.classList.toggle("active", name === "steps");
+function mountWebsiteScreens() {
+  const host = els.webScreen;
+  if (!host) return;
+
+  if (!websiteScreens.length) {
+    host.innerHTML = WEB_EMPTY_HTML;
+    return;
+  }
+
+  host.innerHTML = "";
+  websiteScreens.forEach((s, i) => {
+    const el = document.createElement("div");
+    el.className = "screen" + (i === 0 ? " active" : "");
+    el.dataset.screen = s.id;
+    el.dataset.flow = s.epic || "pos";
+    el.innerHTML = `<div class="screen-code">${websiteTemplates[s.id] || ""}</div>`;
+    host.appendChild(el);
+  });
+}
+
+function renderEpicChips() {
+  const epics = epicsFor(state.surface);
+  const ids = Object.keys(epics);
+  if (!els.epicChips) return;
+
+  if (!ids.length) {
+    els.epicChips.innerHTML = `<span class="chip chip-muted">No epics yet</span>`;
+    return;
+  }
+
+  els.epicChips.innerHTML = ids
+    .map((id) => {
+      const epic = epics[id];
+      const on = id === state.epic ? " active" : "";
+      return `<button type="button" class="chip ${epic.chipClass || ""}${on}" data-epic="${id}">${epic.label}</button>`;
+    })
+    .join("");
+
+  els.epicChips.querySelectorAll("[data-epic]").forEach((btn) => {
+    btn.addEventListener("click", () => setEpic(btn.dataset.epic));
+  });
 }
 
 function updateChips() {
@@ -1093,61 +1671,62 @@ function updateChips() {
     btn.setAttribute("aria-pressed", String(on));
   });
 
-  const epic = EPICS[state.epic];
-  els.epicChips?.querySelectorAll("[data-epic]").forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.epic === state.epic);
-  });
-  if (els.stepsEpicChip && epic) {
-    els.stepsEpicChip.textContent = epic.label;
-    els.stepsEpicChip.className = `chip chip-scope ${epic.chipClass || ""}`;
+  renderEpicChips();
+
+  const epic = activeEpic();
+  if (els.sidebarEpicName) {
+    els.sidebarEpicName.textContent = epic?.label || "No epic yet";
   }
+  if (els.sidebarEpicDesc) {
+    els.sidebarEpicDesc.textContent = epic?.description || "Add an epic for this surface to start.";
+  }
+
+  const surface = SURFACES[state.surface];
+  els.surfaceSwitch?.querySelectorAll("[data-surface]").forEach((btn) => {
+    const on = btn.dataset.surface === state.surface;
+    btn.classList.toggle("active", on);
+    btn.setAttribute("aria-selected", String(on));
+  });
 
   const flow = activeFlow();
-  if (els.stepCount) els.stepCount.textContent = String(flow.length);
+  const empty = !flow.length;
+  const mobile = !isWebsite();
   if (els.scopeHint) {
+    const surfaceLabel = surface?.label || (mobile ? "Mobile" : "Website");
     els.scopeHint.textContent = flow.length
-      ? (epic?.description || "")
-      : "No steps yet — ready for your first screen";
+      ? `${surfaceLabel} · ${flow.length} steps`
+      : `${surfaceLabel} — no steps yet`;
   }
 
-  const empty = !flow.length;
-  if (els.scopeEmptyPhone) els.scopeEmptyPhone.hidden = !empty;
-  if (els.phoneColumn) els.phoneColumn.hidden = empty;
+  if (els.phoneColumn) els.phoneColumn.hidden = !mobile || empty;
+  if (els.webColumn) els.webColumn.hidden = mobile;
+  if (els.scopeEmptyPhone) els.scopeEmptyPhone.hidden = !mobile || !empty;
+}
+
+function applySurfaceClass() {
+  document.documentElement.classList.toggle("surface-mobile", state.surface === "mobile");
+  document.documentElement.classList.toggle("surface-website", state.surface === "website");
+}
+
+function setSurface(surfaceId) {
+  if (!SURFACES[surfaceId] || state.surface === surfaceId) return;
+  state.surface = surfaceId;
+  state.epic = firstEpicId(surfaceId);
+  state.current = 0;
+  pauseDemo();
+  applySurfaceClass();
+  updateChips();
+  goTo(0);
+  fitPreview();
 }
 
 function setEpic(epicId) {
-  if (!EPICS[epicId] || state.epic === epicId) return;
+  if (!epicsFor(state.surface)[epicId] || state.epic === epicId) return;
   state.epic = epicId;
   state.current = 0;
   updateChips();
   goTo(0);
-  fitPhone();
-}
-
-function renderStepsList() {
-  const flow = activeFlow();
-  els.stepsEmpty.hidden = flow.length > 0;
-  els.stepsList.hidden = flow.length === 0;
-
-  if (!flow.length) {
-    els.stepsList.innerHTML = "";
-    return;
-  }
-
-  let html = "";
-  let lastGroup = "";
-  flow.forEach((s, i) => {
-    const group = s.group || "Steps";
-    if (group !== lastGroup) {
-      html += `<li class="step-group"><span class="chip chip-group">${group}</span></li>`;
-      lastGroup = group;
-    }
-    html += `<li><button type="button" data-i="${i}" class="${i === state.current ? "active" : ""}"><span class="step-n">${i + 1}</span><span class="step-name">${shortStepName(s)}</span></button></li>`;
-  });
-  els.stepsList.innerHTML = html;
-  els.stepsList.querySelectorAll("button").forEach((b) =>
-    b.addEventListener("click", () => goTo(Number(b.dataset.i)))
-  );
+  fitPreview();
 }
 
 function updatePlayState() {
@@ -1193,6 +1772,7 @@ function bindGoto() {
   bindCpDropdowns();
   bindAiVerify();
   bindLandingCarousel();
+  bindWebsiteDosage();
 }
 
 function bindLandingCarousel() {
@@ -1852,6 +2432,957 @@ function bindHomeDemo() {
   });
 }
 
+const ADD_ID = "__add__";
+
+let dosageLibrary = [
+  {
+    id: "lib-8h",
+    title: "Every 8 hours",
+    text: "Take 1 tablet every 8 hours after food. Do not exceed 3 tablets in 24 hours.",
+  },
+  {
+    id: "lib-1x",
+    title: "Once daily after food",
+    text: "Take 1 tablet once daily after food.",
+  },
+  {
+    id: "lib-sleep",
+    title: "Before sleep",
+    text: "Take 1 tablet before sleep.",
+  },
+  {
+    id: "lib-2x",
+    title: "Twice daily after food",
+    text: "Take 1 tablet twice daily after food.",
+  },
+  {
+    id: "lib-3x",
+    title: "Three times daily",
+    text: "Take 1 tablet three times daily.",
+  },
+  {
+    id: "lib-6h",
+    title: "Every 6 hours",
+    text: "Take 1 tablet every 6 hours after food.",
+  },
+  {
+    id: "lib-12h",
+    title: "Every 12 hours",
+    text: "Take 1 tablet every 12 hours.",
+  },
+  {
+    id: "lib-4h",
+    title: "Every 4 hours",
+    text: "Take 1 tablet every 4 hours if needed. Do not exceed 6 tablets in 24 hours.",
+  },
+  {
+    id: "lib-pain",
+    title: "As needed for pain",
+    text: "Take 1 tablet as needed for pain. Do not exceed 4 tablets in 24 hours.",
+  },
+  {
+    id: "lib-breakfast",
+    title: "With breakfast",
+    text: "Take 1 tablet with breakfast.",
+  },
+  {
+    id: "lib-meals",
+    title: "After meals",
+    text: "Take 1 tablet after meals.",
+  },
+  {
+    id: "lib-before",
+    title: "Before food",
+    text: "Take 1 tablet 30 minutes before food.",
+  },
+  {
+    id: "lib-cream",
+    title: "Apply twice daily",
+    text: "Apply a thin layer to the affected area twice daily.",
+  },
+  {
+    id: "lib-syrup",
+    title: "Shake well, 5 ml",
+    text: "Shake well. Take 5 ml three times daily.",
+  },
+  {
+    id: "lib-drops",
+    title: "One drop each eye",
+    text: "Instill 1 drop in each eye twice daily.",
+  },
+  {
+    id: "lib-water",
+    title: "With plenty of water",
+    text: "Take 1 tablet with plenty of water.",
+  },
+];
+
+function compareDosageTitle(a, b) {
+  return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+}
+
+function filterDosageLibrary(query, pinId) {
+  const q = (query || "").trim().toLowerCase();
+  const items = dosageLibrary.filter((item) => {
+    if (pinId && item.id === pinId) return true;
+    if (!q) return true;
+    return `${item.title} ${item.text}`.toLowerCase().includes(q);
+  });
+  return items.sort(compareDosageTitle);
+}
+
+const DOSAGE_CATALOG = {
+  panadol: {
+    name: "Panadol Extra 500mg",
+    form: "Tablet · 500 mg",
+    qty: "2",
+    expiry: "12/2027",
+    text: "Take 1 tablet every 8 hours after food. Do not exceed 3 tablets in 24 hours.",
+    libraryId: "lib-8h",
+  },
+  brufen: {
+    name: "Brufen 400mg",
+    form: "Tablet · 400 mg",
+    qty: "1",
+    expiry: "06/2026",
+    text: "",
+    libraryId: null,
+  },
+};
+
+const DOSAGE_PHARMACY = {
+  pharmacyName: "Ghaidaa Tayseer Pharmacy",
+  address: "Jordan-Amman-Amman - وادي السير - بجانب أسواق نبع وادي السير حي القيسية",
+  phone: "",
+  pharmacistName: "Ghaidaa Tayseer",
+};
+
+const DOSAGE_PRINT = {
+  alignment: "right",
+  printSize: "80mm",
+  fields: {
+    pharmacyName: true,
+    address: true,
+    phone: true,
+    productName: true,
+    patientName: true,
+    dosage: true,
+    expiryDate: true,
+    dispenseDate: true,
+    pharmacistName: true,
+  },
+};
+
+const SLIP_LABELS = {
+  address: "العنوان",
+  phone: "هاتف الصيدلية",
+  productName: "اسم الصنف",
+  patientName: "اسم المريض",
+  dosage: "الجرعة",
+  expiryDate: "تاريخ الانتهاء",
+  dispenseDate: "تاريخ الصرف",
+  pharmacistName: "اسم الصيدلي",
+};
+
+const DOSAGE_SLIP_SAMPLE = {
+  ...DOSAGE_PHARMACY,
+  productName: "Men Splash 100 212",
+  patientName: "f",
+  dosage: "(After lunch) بعد الغداء",
+  expiryDate: "06/02/2027",
+  dispenseDate: "09/09/2026",
+};
+
+function renderDosageReceipt(data, config = DOSAGE_PRINT) {
+  const alignment = config.alignment === "left" || config.alignment === "center" ? config.alignment : "right";
+  const fields = config.fields;
+  const sizeClass = config.printSize === "58mm" ? "pw-slip-58" : "pw-slip-80";
+  const dir = alignment === "right" ? "rtl" : "ltr";
+  const line = (key, value) => {
+    if (!fields[key]) return "";
+    return `<p class="pw-slip-line">${escapeDosageHtml(SLIP_LABELS[key])} : ${escapeDosageHtml(value || "")}</p>`;
+  };
+  let dates = "";
+  if (fields.expiryDate && fields.dispenseDate) {
+    dates = `<p class="pw-slip-line">${escapeDosageHtml(SLIP_LABELS.expiryDate)} : ${escapeDosageHtml(data.expiryDate || "")} &nbsp;&nbsp; ${escapeDosageHtml(SLIP_LABELS.dispenseDate)} : ${escapeDosageHtml(data.dispenseDate || "")}</p>`;
+  } else {
+    dates = `${line("expiryDate", data.expiryDate)}${line("dispenseDate", data.dispenseDate)}`;
+  }
+  return `
+    <div class="pw-slip ${sizeClass} pw-slip-${alignment}" dir="${dir}">
+      ${fields.pharmacyName ? `<p class="pw-slip-pharmacy">${escapeDosageHtml(data.pharmacyName || "")}</p>` : ""}
+      ${line("address", data.address)}
+      ${line("phone", data.phone)}
+      ${line("productName", data.productName)}
+      ${line("patientName", data.patientName)}
+      ${line("dosage", data.dosage)}
+      ${dates}
+      ${line("pharmacistName", data.pharmacistName)}
+    </div>`;
+}
+
+function slipDataForProduct(item) {
+  return {
+    ...DOSAGE_PHARMACY,
+    productName: item.name,
+    patientName: "Ahmad Al-Khatib",
+    dosage: item.text,
+    expiryDate: item.expiry,
+    dispenseDate: "09/09/2026",
+  };
+}
+
+function findDosageLabel(id) {
+  return dosageLibrary.find((item) => item.id === id) || null;
+}
+
+function showLocalToast(el, message) {
+  if (!el) return;
+  el.textContent = message;
+  el.hidden = false;
+  window.setTimeout(() => {
+    el.hidden = true;
+  }, 1600);
+}
+
+function bindWebsiteDosage() {
+  const canvas = document.querySelector(".screen.active [data-feature-canvas]");
+  if (!canvas) return;
+  const id = canvas.dataset.featureCanvas;
+  if (id === "pos-index") bindDosageFlow();
+  if (id === "dosage-library") bindDosageLibrary();
+  if (id === "print-config") bindPrintConfig();
+}
+
+function bindPrintConfig() {
+  const root = document.querySelector(".screen.active [data-feature-canvas='print-config']");
+  if (!root) return;
+
+  const footer = root.querySelector("[data-cfg-footer]");
+  const toast = root.querySelector("[data-cfg-toast]");
+  const listEl = root.querySelector("[data-dosage-tpl-list]");
+  const editEl = root.querySelector("[data-dosage-tpl-edit]");
+  const previewEl = root.querySelector("[data-slip-preview]");
+  let editing = false;
+
+  const setTab = (tab) => {
+    root.querySelectorAll("[data-cfg-tab]").forEach((btn) => {
+      btn.classList.toggle("is-on", btn.dataset.cfgTab === tab);
+    });
+    root.querySelectorAll("[data-cfg-panel]").forEach((panel) => {
+      panel.hidden = panel.dataset.cfgPanel !== tab;
+    });
+    if (footer) footer.hidden = !(tab === "receipt" || (tab === "dosage" && editing));
+  };
+
+  const syncFieldsFromConfig = () => {
+    root.querySelectorAll("[data-slip-field]").forEach((input) => {
+      input.checked = Boolean(DOSAGE_PRINT.fields[input.dataset.slipField]);
+    });
+    const sizeEl = root.querySelector("[data-slip-size]");
+    if (sizeEl) sizeEl.value = DOSAGE_PRINT.printSize;
+    root.querySelectorAll("[data-slip-align]").forEach((btn) => {
+      btn.classList.toggle("is-on", btn.dataset.slipAlign === DOSAGE_PRINT.alignment);
+    });
+  };
+
+  const renderPreview = () => {
+    if (previewEl) previewEl.innerHTML = renderDosageReceipt(DOSAGE_SLIP_SAMPLE, DOSAGE_PRINT);
+    const cards = root.querySelectorAll("[data-dose-tpl]");
+    cards.forEach((card) => {
+      const active = (DOSAGE_PRINT.printSize === "80mm" && card.dataset.doseTpl === "80mm-right")
+        || (DOSAGE_PRINT.printSize === "58mm" && card.dataset.doseTpl === "58mm-left");
+      card.classList.toggle("is-active", active);
+    });
+  };
+
+  const openEditor = (templateId) => {
+    editing = true;
+    if (templateId === "58mm-left") {
+      DOSAGE_PRINT.printSize = "58mm";
+      DOSAGE_PRINT.alignment = "left";
+    } else {
+      DOSAGE_PRINT.printSize = "80mm";
+      DOSAGE_PRINT.alignment = "right";
+    }
+    const nameEl = root.querySelector("[data-dose-tpl-name]");
+    const heading = root.querySelector("[data-dose-tpl-heading]");
+    if (nameEl) nameEl.value = templateId === "58mm-left" ? "58mm compact" : "80mm dosage";
+    if (heading) heading.textContent = "Edit dosage template";
+    if (listEl) listEl.hidden = true;
+    if (editEl) editEl.hidden = false;
+    syncFieldsFromConfig();
+    renderPreview();
+    setTab("dosage");
+  };
+
+  const closeEditor = () => {
+    editing = false;
+    if (listEl) listEl.hidden = false;
+    if (editEl) editEl.hidden = true;
+    setTab("dosage");
+    renderPreview();
+  };
+
+  root.querySelectorAll("[data-cfg-tab]").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      if (btn.dataset.cfgTab !== "dosage") editing = false;
+      setTab(btn.dataset.cfgTab);
+    };
+  });
+
+  root.querySelectorAll("[data-dose-tpl-edit]").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      openEditor(btn.dataset.doseTplEdit);
+    };
+  });
+
+  const backBtn = root.querySelector("[data-dose-tpl-back]");
+  if (backBtn) {
+    backBtn.onclick = (e) => {
+      e.preventDefault();
+      closeEditor();
+    };
+  }
+
+  root.querySelectorAll("[data-slip-field]").forEach((input) => {
+    input.onchange = () => {
+      DOSAGE_PRINT.fields[input.dataset.slipField] = input.checked;
+      renderPreview();
+    };
+  });
+
+  const sizeEl = root.querySelector("[data-slip-size]");
+  if (sizeEl) {
+    sizeEl.onchange = () => {
+      DOSAGE_PRINT.printSize = sizeEl.value;
+      renderPreview();
+    };
+  }
+  root.querySelectorAll("[data-slip-align]").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      DOSAGE_PRINT.alignment = btn.dataset.slipAlign;
+      syncFieldsFromConfig();
+      renderPreview();
+    };
+  });
+
+  const saveBtn = root.querySelector("[data-cfg-save]");
+  if (saveBtn) {
+    saveBtn.onclick = (e) => {
+      e.preventDefault();
+      showLocalToast(toast, "Configuration saved");
+    };
+  }
+
+  setTab("dosage");
+  renderPreview();
+}
+
+function bindDosageLibrary() {
+  const root = document.querySelector(".screen.active [data-feature-canvas='dosage-library']");
+  if (!root) return;
+
+  const listEl = root.querySelector("[data-lib-list]");
+  const emptyEl = root.querySelector("[data-lib-empty]");
+  const countEl = root.querySelector("[data-lib-count]");
+  const searchEl = root.querySelector("[data-lib-search]");
+  const clearSearchBtn = root.querySelector("[data-lib-search-clear]");
+  const addBtn = root.querySelector("[data-lib-add]");
+  const dialog = root.querySelector("[data-lib-delete-dialog]");
+  const toast = root.querySelector("[data-lib-toast]");
+  let pendingDeleteId = null;
+  let openId = null;
+  let draft = { title: "", text: "" };
+  let flashId = null;
+  let focusEditor = false;
+
+  const unlinkCatalog = (id) => {
+    Object.values(DOSAGE_CATALOG).forEach((product) => {
+      if (product.libraryId === id) product.libraryId = null;
+    });
+  };
+
+  const searchQuery = () => (searchEl?.value || "").trim();
+
+  const isDirty = () => {
+    if (!openId) return false;
+    if (openId === ADD_ID) return Boolean(draft.title.trim() || draft.text.trim());
+    const item = findDosageLabel(openId);
+    if (!item) return false;
+    return draft.title !== item.title || draft.text !== item.text;
+  };
+
+  const captureDraft = () => {
+    const nameEl = listEl?.querySelector("[data-editor-name]");
+    const textEl = listEl?.querySelector("[data-editor-text]");
+    if (nameEl) draft.title = nameEl.value;
+    if (textEl) draft.text = textEl.value;
+  };
+
+  const scrollToRow = (id) => {
+    if (!id) return;
+    window.requestAnimationFrame(() => {
+      listEl?.querySelector(`[data-lib-id="${id}"]`)?.scrollIntoView({ block: "nearest" });
+    });
+  };
+
+  const editorHtml = (saveLabel) => `
+    <div class="pw-lib-inline">
+      <div class="pw-lib-inline-grid">
+        <label class="pw-field">
+          <span>Name</span>
+          <input type="text" data-editor-name value="${escapeDosageHtml(draft.title)}" placeholder="e.g. Once daily after food" />
+        </label>
+        <label class="pw-field">
+          <span>How to take</span>
+          <textarea data-editor-text rows="2" placeholder="Take 1 tablet once daily after food.">${escapeDosageHtml(draft.text)}</textarea>
+        </label>
+      </div>
+      <div class="pw-lib-inline-actions">
+        <button type="button" class="pw-btn-outline" data-form-cancel>Cancel</button>
+        <button type="button" class="pw-complete pw-complete-inline" data-editor-save>${saveLabel}</button>
+      </div>
+    </div>`;
+
+  const rowHtml = (item) => {
+    const open = item.id === openId;
+    const flash = item.id === flashId ? " is-flash" : "";
+    if (open) {
+      return `<article class="pw-lib-row is-open${flash}" data-lib-id="${item.id}">${editorHtml("Save")}</article>`;
+    }
+    return `
+      <article class="pw-lib-row${flash}" data-lib-id="${item.id}">
+        <div class="pw-lib-row-copy">
+          <strong>${escapeDosageHtml(item.title)}</strong>
+          <span>${escapeDosageHtml(item.text)}</span>
+        </div>
+        <div class="pw-lib-row-actions">
+          <button type="button" class="pw-btn-ghost" data-lib-edit="${item.id}">Edit</button>
+          <button type="button" class="pw-btn-danger" data-lib-delete="${item.id}">Delete</button>
+        </div>
+      </article>`;
+  };
+
+  const render = () => {
+    const query = searchQuery();
+    const pinId = openId && openId !== ADD_ID ? openId : null;
+    const items = filterDosageLibrary(query, pinId);
+    const adding = openId === ADD_ID;
+    if (clearSearchBtn) clearSearchBtn.hidden = !query;
+    if (addBtn) addBtn.hidden = adding;
+    if (countEl) {
+      countEl.textContent = query
+        ? `${items.length} of ${dosageLibrary.length}`
+        : `${dosageLibrary.length} saved`;
+    }
+    const showEmpty = !dosageLibrary.length && !adding;
+    if (emptyEl) emptyEl.hidden = !showEmpty;
+    if (!listEl) return;
+    if (showEmpty) {
+      listEl.hidden = true;
+      listEl.innerHTML = "";
+      return;
+    }
+    listEl.hidden = false;
+    const rows = [];
+    if (adding) {
+      rows.push(`<article class="pw-lib-row is-open" data-lib-id="${ADD_ID}">${editorHtml("Add")}</article>`);
+    }
+    if (!items.length && !adding) {
+      rows.push(`<p class="pw-lib-pick-empty">No dosages match “${escapeDosageHtml(searchEl.value)}”.</p>`);
+    } else {
+      items.forEach((item) => rows.push(rowHtml(item)));
+    }
+    listEl.innerHTML = rows.join("");
+    if (focusEditor) {
+      focusEditor = false;
+      listEl.querySelector("[data-editor-name]")?.focus();
+    }
+  };
+
+  const closeEditor = () => {
+    openId = null;
+    draft = { title: "", text: "" };
+    render();
+  };
+
+  const warnIfDirty = () => {
+    if (!isDirty()) return false;
+    showLocalToast(toast, "Save or cancel this dosage first");
+    listEl?.querySelector("[data-editor-name]")?.focus();
+    return true;
+  };
+
+  const startAdd = () => {
+    if (openId === ADD_ID) {
+      listEl?.querySelector("[data-editor-name]")?.focus();
+      return;
+    }
+    captureDraft();
+    if (warnIfDirty()) return;
+    openId = ADD_ID;
+    draft = { title: "", text: "" };
+    focusEditor = true;
+    render();
+    scrollToRow(ADD_ID);
+  };
+
+  const startEdit = (id) => {
+    if (openId === id) {
+      listEl?.querySelector("[data-editor-name]")?.focus();
+      return;
+    }
+    captureDraft();
+    if (warnIfDirty()) return;
+    const item = findDosageLabel(id);
+    if (!item) return;
+    openId = id;
+    draft = { title: item.title, text: item.text };
+    focusEditor = true;
+    render();
+    scrollToRow(id);
+  };
+
+  const titleTaken = (title, exceptId) => dosageLibrary.some((item) => (
+    item.id !== exceptId && item.title.toLowerCase() === title.toLowerCase()
+  ));
+
+  const saveLabel = () => {
+    captureDraft();
+    const title = draft.title.trim();
+    const text = draft.text.trim();
+    const nameEl = listEl?.querySelector("[data-editor-name]");
+    const textEl = listEl?.querySelector("[data-editor-text]");
+    if (!title) {
+      nameEl?.focus();
+      return;
+    }
+    if (!text) {
+      textEl?.focus();
+      return;
+    }
+    const current = openId === ADD_ID ? null : findDosageLabel(openId);
+    if (titleTaken(title, current?.id)) {
+      showLocalToast(toast, "A label with this name already exists");
+      nameEl?.focus();
+      return;
+    }
+    let focusId = null;
+    if (current) {
+      current.title = title;
+      current.text = text;
+      Object.values(DOSAGE_CATALOG).forEach((product) => {
+        if (product.libraryId === current.id) product.text = text;
+      });
+      focusId = current.id;
+      showLocalToast(toast, "Label saved");
+    } else {
+      focusId = `lib-${Date.now()}`;
+      dosageLibrary.push({ id: focusId, title, text });
+      showLocalToast(toast, "Label added");
+    }
+    openId = null;
+    draft = { title: "", text: "" };
+    flashId = focusId;
+    render();
+    scrollToRow(focusId);
+    window.setTimeout(() => {
+      if (flashId === focusId) {
+        flashId = null;
+        listEl?.querySelector(`[data-lib-id="${focusId}"]`)?.classList.remove("is-flash");
+      }
+    }, 1400);
+  };
+
+  if (searchEl) {
+    searchEl.oninput = () => {
+      captureDraft();
+      render();
+    };
+  }
+
+  if (clearSearchBtn) {
+    clearSearchBtn.onclick = (e) => {
+      e.preventDefault();
+      captureDraft();
+      if (searchEl) searchEl.value = "";
+      render();
+      searchEl?.focus();
+    };
+  }
+
+  if (addBtn) {
+    addBtn.onclick = (e) => {
+      e.preventDefault();
+      startAdd();
+    };
+  }
+
+  if (listEl) {
+    listEl.oninput = (e) => {
+      if (e.target.matches("[data-editor-name]")) draft.title = e.target.value;
+      if (e.target.matches("[data-editor-text]")) draft.text = e.target.value;
+    };
+    listEl.onkeydown = (e) => {
+      if (!openId) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeEditor();
+        return;
+      }
+      const fromName = e.key === "Enter" && e.target.matches("[data-editor-name]");
+      const saveCombo = e.key === "Enter" && (e.metaKey || e.ctrlKey);
+      if (fromName || saveCombo) {
+        e.preventDefault();
+        saveLabel();
+      }
+    };
+    listEl.onclick = (e) => {
+      if (e.target.closest("[data-editor-save]")) {
+        e.preventDefault();
+        saveLabel();
+        return;
+      }
+      if (e.target.closest("[data-form-cancel]")) {
+        e.preventDefault();
+        closeEditor();
+        return;
+      }
+      const deleteBtn = e.target.closest("[data-lib-delete]");
+      if (deleteBtn) {
+        e.preventDefault();
+        pendingDeleteId = deleteBtn.dataset.libDelete;
+        const item = findDosageLabel(pendingDeleteId);
+        const deleteNameEl = root.querySelector("[data-lib-delete-name]");
+        if (deleteNameEl) deleteNameEl.textContent = item?.title || "this label";
+        if (dialog) dialog.hidden = false;
+        return;
+      }
+      const editBtn = e.target.closest("[data-lib-edit]");
+      if (editBtn) {
+        e.preventDefault();
+        startEdit(editBtn.dataset.libEdit);
+        return;
+      }
+      const row = e.target.closest("[data-lib-id]");
+      if (row && row.dataset.libId !== ADD_ID && !row.classList.contains("is-open")) {
+        startEdit(row.dataset.libId);
+      }
+    };
+  }
+
+  const cancelDelete = root.querySelector("[data-lib-delete-cancel]");
+  if (cancelDelete) {
+    cancelDelete.onclick = (e) => {
+      e.preventDefault();
+      pendingDeleteId = null;
+      if (dialog) dialog.hidden = true;
+    };
+  }
+
+  const confirmDelete = root.querySelector("[data-lib-delete-confirm]");
+  if (confirmDelete) {
+    confirmDelete.onclick = (e) => {
+      e.preventDefault();
+      if (pendingDeleteId) {
+        if (openId === pendingDeleteId) {
+          openId = null;
+          draft = { title: "", text: "" };
+        }
+        dosageLibrary = dosageLibrary.filter((item) => item.id !== pendingDeleteId);
+        unlinkCatalog(pendingDeleteId);
+        showLocalToast(toast, "Label deleted");
+      }
+      pendingDeleteId = null;
+      if (dialog) dialog.hidden = true;
+      render();
+    };
+  }
+
+  render();
+}
+
+function escapeDosageHtml(value) {
+  return String(value).replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  }[char]));
+}
+
+function bindDosageFlow() {
+  const root = document.querySelector(".screen.active .pw");
+  if (!root || !root.querySelector("#pw-dosage-sheet")) return;
+
+  const WRITE_VALUE = "__write__";
+  const catalogIds = () => Object.keys(DOSAGE_CATALOG);
+  const sheet = root.querySelector("#pw-dosage-sheet");
+  const toast = root.querySelector("[data-dose-toast]");
+  const textEl = root.querySelector("[data-dose-text]");
+  const writePane = root.querySelector("[data-dose-write-pane]");
+  const pickPane = root.querySelector("[data-dose-pick-pane]");
+  const chosenEl = root.querySelector("[data-dose-chosen]");
+  const chosenTitle = root.querySelector("[data-dose-chosen-title]");
+  const chosenText = root.querySelector("[data-dose-chosen-text]");
+  const filterEl = root.querySelector("[data-dose-filter]");
+  const optionsEl = root.querySelector("[data-dose-options]");
+  const productsEl = root.querySelector("[data-dose-products]");
+  const previewEl = root.querySelector("[data-dose-preview-host]");
+  const previewWrap = root.querySelector("[data-dose-preview-wrap]");
+  const printBtn = root.querySelector("[data-dose-print]");
+  const printLabel = root.querySelector("[data-dose-print-label]");
+  let currentId = "panadol";
+  let pendingComplete = false;
+  let printQueue = false;
+  let selectedDoseId = "";
+  let listOpen = false;
+
+  const openSheet = (id, queue) => {
+    printQueue = Boolean(queue);
+    fillSheet(id);
+    if (sheet) sheet.hidden = false;
+  };
+
+  const currentText = () => {
+    if (selectedDoseId === WRITE_VALUE) return textEl?.value.trim() || "";
+    return findDosageLabel(selectedDoseId)?.text || "";
+  };
+
+  const isLastInQueue = () => {
+    const ids = catalogIds();
+    return ids.indexOf(currentId) === ids.length - 1;
+  };
+
+  const syncPrintButton = () => {
+    const ready = Boolean(currentText());
+    if (printBtn) printBtn.disabled = !ready;
+    if (printLabel) {
+      printLabel.textContent = printQueue && !isLastInQueue() ? "Print & next" : "Print";
+    }
+  };
+
+  const syncPreview = () => {
+    const item = DOSAGE_CATALOG[currentId];
+    if (!previewEl || !item) return;
+    previewEl.innerHTML = renderDosageReceipt(
+      slipDataForProduct({ ...item, text: currentText() }),
+      DOSAGE_PRINT
+    );
+    syncPrintButton();
+  };
+
+  const renderProducts = () => {
+    if (!productsEl) return;
+    const ids = catalogIds();
+    productsEl.hidden = ids.length < 2;
+    productsEl.innerHTML = ids.map((id) => {
+      const item = DOSAGE_CATALOG[id];
+      const ready = Boolean(item.text);
+      return `
+        <button type="button" class="pw-dose-pill${id === currentId ? " is-on" : ""}" data-dose-product="${id}">
+          <span>${escapeDosageHtml(item.name)}</span>
+          ${ready ? `<em>Ready</em>` : ""}
+        </button>`;
+    }).join("");
+  };
+
+  const renderDoseOptions = () => {
+    if (!optionsEl) return;
+    const query = (filterEl?.value || "").trim();
+    let items = filterDosageLibrary(query);
+    if (selectedDoseId && selectedDoseId !== WRITE_VALUE && !items.some((item) => item.id === selectedDoseId)) {
+      const pinned = findDosageLabel(selectedDoseId);
+      if (pinned) items = [pinned, ...items.filter((item) => item.id !== pinned.id)];
+    }
+    optionsEl.innerHTML = [
+      ...items.map((item) => `
+        <button type="button" class="pw-combo-item${item.id === selectedDoseId ? " is-on" : ""}" data-dose-pick="${item.id}">
+          <strong>${escapeDosageHtml(item.title)}</strong>
+          <span>${escapeDosageHtml(item.text)}</span>
+        </button>`),
+      items.length
+        ? ""
+        : `<p class="pw-lib-pick-empty">No dosages match that search.</p>`,
+      `<button type="button" class="pw-combo-item pw-combo-write${selectedDoseId === WRITE_VALUE ? " is-on" : ""}" data-dose-pick="${WRITE_VALUE}">Write a one-off…</button>`,
+    ].join("");
+  };
+
+  const applySelectMode = () => {
+    const isWrite = selectedDoseId === WRITE_VALUE;
+    const saved = !isWrite && findDosageLabel(selectedDoseId);
+    const showList = listOpen || (!saved && !isWrite);
+    if (pickPane) pickPane.hidden = !showList;
+    if (chosenEl) chosenEl.hidden = showList || isWrite || !saved;
+    if (writePane) writePane.hidden = !isWrite;
+    if (previewWrap) previewWrap.hidden = showList;
+    if (saved) {
+      if (chosenTitle) chosenTitle.textContent = saved.title;
+      if (chosenText) chosenText.textContent = saved.text;
+    }
+    if (isWrite && textEl && !textEl.value) {
+      const item = DOSAGE_CATALOG[currentId];
+      if (item?.text && !findDosageLabel(item.libraryId)) textEl.value = item.text;
+    }
+    renderProducts();
+    renderDoseOptions();
+    syncPreview();
+  };
+
+  const fillSheet = (id) => {
+    const item = DOSAGE_CATALOG[id];
+    if (!item) return;
+    currentId = id;
+    const matchedId = item.libraryId && findDosageLabel(item.libraryId)
+      ? item.libraryId
+      : dosageLibrary.find((label) => label.text === item.text)?.id || "";
+    root.querySelectorAll("[data-dose-name]").forEach((el) => {
+      el.textContent = item.name;
+    });
+    const formEl = root.querySelector("[data-dose-form]");
+    const qtyEl = root.querySelector("[data-dose-qty]");
+    if (formEl) formEl.textContent = item.form;
+    if (qtyEl) qtyEl.textContent = item.qty;
+    if (textEl) textEl.value = matchedId ? "" : item.text;
+    if (filterEl) filterEl.value = "";
+    if (matchedId) {
+      selectedDoseId = matchedId;
+      listOpen = false;
+    } else if (item.text) {
+      selectedDoseId = WRITE_VALUE;
+      listOpen = false;
+    } else {
+      selectedDoseId = "";
+      listOpen = true;
+    }
+    applySelectMode();
+  };
+
+  const saveCurrent = () => {
+    const item = DOSAGE_CATALOG[currentId];
+    if (!item) return false;
+    const text = currentText();
+    if (!text) return false;
+    item.text = text;
+    item.libraryId = selectedDoseId && selectedDoseId !== WRITE_VALUE ? selectedDoseId : null;
+    return true;
+  };
+
+  const sendToPrinter = () => {
+    if (!saveCurrent()) {
+      if (selectedDoseId === WRITE_VALUE) textEl?.focus();
+      else {
+        listOpen = true;
+        applySelectMode();
+        filterEl?.focus();
+      }
+      return;
+    }
+    const nextId = printQueue ? catalogIds()[catalogIds().indexOf(currentId) + 1] : null;
+    if (nextId) {
+      showLocalToast(toast, "Printed · next item");
+      fillSheet(nextId);
+      return;
+    }
+    if (sheet) sheet.hidden = true;
+    showLocalToast(
+      toast,
+      pendingComplete ? "Sale completed · dosage sent to printer" : "Dosage sent to printer"
+    );
+    pendingComplete = false;
+    printQueue = false;
+  };
+
+  root.querySelectorAll("[data-dosage-close]").forEach((el) => {
+    el.onclick = (e) => {
+      e.preventDefault();
+      pendingComplete = false;
+      printQueue = false;
+      if (sheet) sheet.hidden = true;
+    };
+  });
+
+  if (filterEl) {
+    filterEl.oninput = () => {
+      renderDoseOptions();
+    };
+  }
+  if (optionsEl) {
+    optionsEl.onclick = (e) => {
+      const pick = e.target.closest("[data-dose-pick]");
+      if (!pick) return;
+      e.preventDefault();
+      selectedDoseId = pick.dataset.dosePick;
+      listOpen = false;
+      applySelectMode();
+      if (selectedDoseId === WRITE_VALUE) textEl?.focus();
+    };
+  }
+  if (productsEl) {
+    productsEl.onclick = (e) => {
+      const pill = e.target.closest("[data-dose-product]");
+      if (!pill || pill.dataset.doseProduct === currentId) return;
+      e.preventDefault();
+      if (currentText()) saveCurrent();
+      fillSheet(pill.dataset.doseProduct);
+    };
+  }
+  root.querySelectorAll("[data-dose-change]").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      listOpen = true;
+      if (selectedDoseId === WRITE_VALUE) selectedDoseId = "";
+      if (filterEl) filterEl.value = "";
+      applySelectMode();
+      filterEl?.focus();
+    };
+  });
+  if (textEl) textEl.oninput = syncPreview;
+
+  if (printBtn) {
+    printBtn.onclick = (e) => {
+      e.preventDefault();
+      sendToPrinter();
+    };
+  }
+
+  const printAllBtn = root.querySelector("[data-print-all-dosages]");
+  if (printAllBtn) {
+    printAllBtn.onclick = (e) => {
+      e.preventDefault();
+      pendingComplete = false;
+      openSheet(catalogIds()[0], true);
+    };
+  }
+
+  root.querySelectorAll("[data-print-row]").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      pendingComplete = false;
+      openSheet(btn.dataset.printRow, false);
+    };
+  });
+
+  const completeBtn = root.querySelector("[data-complete-sale]");
+  if (completeBtn) {
+    completeBtn.onclick = (e) => {
+      e.preventDefault();
+      const printOnComplete = root.querySelector("[data-print-on-complete]");
+      if (printOnComplete && printOnComplete.checked) {
+        pendingComplete = true;
+        openSheet(catalogIds()[0], true);
+        return;
+      }
+      showLocalToast(toast, "Sale completed");
+    };
+  }
+}
+
 function bindOtpInputs() {
   const boxes = [...document.querySelectorAll(".screen.active .otp-box")];
   if (!boxes.length) return;
@@ -1876,9 +3407,7 @@ function goTo(index) {
     if (els.progressFill) els.progressFill.style.width = "0%";
     if (els.prevBtn) els.prevBtn.disabled = true;
     if (els.nextBtn) els.nextBtn.disabled = true;
-    if (els.prevBtnSteps) els.prevBtnSteps.disabled = true;
-    if (els.nextBtnSteps) els.nextBtnSteps.disabled = true;
-    renderStepsList();
+    requestAnimationFrame(fitPreview);
     return;
   }
 
@@ -1886,7 +3415,8 @@ function goTo(index) {
   state.aiRunning = false;
   const step = flow[state.current];
 
-  document.querySelectorAll(".screen").forEach((el) => {
+  const root = previewRoot();
+  root?.querySelectorAll(".screen").forEach((el) => {
     el.classList.toggle("active", el.dataset.flow === state.epic && el.dataset.screen === step.id);
   });
 
@@ -1894,9 +3424,7 @@ function goTo(index) {
   if (els.progressFill) els.progressFill.style.width = `${((state.current + 1) / flow.length) * 100}%`;
   if (els.prevBtn) els.prevBtn.disabled = state.current === 0;
   if (els.nextBtn) els.nextBtn.disabled = state.current === flow.length - 1;
-  if (els.prevBtnSteps) els.prevBtnSteps.disabled = state.current === 0;
-  if (els.nextBtnSteps) els.nextBtnSteps.disabled = state.current === flow.length - 1;
-  renderStepsList();
+  if (els.webUrl && step.url) els.webUrl.textContent = step.url;
 
   try {
     bindGoto();
@@ -1912,12 +3440,7 @@ function goTo(index) {
     }
   }
 
-  if (els.panelSteps?.classList.contains("active")) {
-    const activeBtn = els.stepsList?.querySelector("button.active");
-    if (activeBtn) activeBtn.scrollIntoView({ block: "nearest", behavior: "smooth" });
-  }
-
-  requestAnimationFrame(fitPhone);
+  requestAnimationFrame(fitPreview);
 }
 
 function goToId(id) {
@@ -1928,32 +3451,35 @@ function goToId(id) {
   }
 
   // Linked screens outside the active epic step list (e.g. Log in from landing)
-  const el = document.querySelector(`.screen[data-screen="${id}"]`);
+  const el =
+    previewRoot()?.querySelector(`.screen[data-screen="${id}"]`) ||
+    els.phoneScreen?.querySelector(`.screen[data-screen="${id}"]`);
   if (el) {
-    document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+    el.parentElement?.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
     el.classList.add("active");
   }
 }
 
-function fitPhone() {
-  const stage = document.querySelector(".stage");
-  const column = els.phoneColumn;
+function fitPreview() {
+  if (isWebsite()) fitToStage(els.webColumn, "--web-scale", 0.4);
+  else fitToStage(els.phoneColumn, "--phone-scale", 0.55);
+}
+
+function fitToStage(column, cssVar, minScale) {
+  const stage = document.querySelector(".stage-inner") || document.querySelector(".stage");
   if (!stage || !column || column.hidden) return;
-  document.documentElement.style.setProperty("--phone-scale", "1");
+  document.documentElement.style.setProperty(cssVar, "1");
   const margin = 16;
   const scale = Math.min(
     (stage.clientWidth - margin) / column.offsetWidth,
     (stage.clientHeight - margin) / column.offsetHeight
   );
-  document.documentElement.style.setProperty("--phone-scale", Math.max(0.55, scale));
+  document.documentElement.style.setProperty(cssVar, Math.max(minScale, scale));
 }
 
 function bindEvents() {
-  els.openSteps.addEventListener("click", () => showPanel("steps"));
-  els.backToMenu.addEventListener("click", () => showPanel("menu"));
-
-  els.epicChips?.querySelectorAll("[data-epic]").forEach((btn) => {
-    btn.addEventListener("click", () => setEpic(btn.dataset.epic));
+  els.surfaceSwitch?.querySelectorAll("[data-surface]").forEach((btn) => {
+    btn.addEventListener("click", () => setSurface(btn.dataset.surface));
   });
 
   document.querySelectorAll("#demoBar [data-ai-outcome]").forEach((btn) => {
@@ -1969,8 +3495,6 @@ function bindEvents() {
 
   els.prevBtn?.addEventListener("click", () => goTo(state.current - 1));
   els.nextBtn?.addEventListener("click", () => goTo(state.current + 1));
-  els.prevBtnSteps?.addEventListener("click", () => goTo(state.current - 1));
-  els.nextBtnSteps?.addEventListener("click", () => goTo(state.current + 1));
 
   document.addEventListener("keydown", (e) => {
     const tag = document.activeElement?.tagName;
@@ -1994,25 +3518,25 @@ function bindEvents() {
     }
   });
 
-  window.addEventListener("resize", fitPhone);
+  window.addEventListener("resize", fitPreview);
 }
 
 function cacheElements() {
   els = {
     panelMenu: document.getElementById("panelMenu"),
-    panelSteps: document.getElementById("panelSteps"),
     epicChips: document.getElementById("epicChips"),
-    stepsEpicChip: document.getElementById("stepsEpicChip"),
+    sidebarEpicName: document.getElementById("sidebarEpicName"),
+    sidebarEpicDesc: document.getElementById("sidebarEpicDesc"),
     scopeHint: document.getElementById("scopeHint"),
-    openSteps: document.getElementById("openSteps"),
-    stepCount: document.getElementById("stepCount"),
-    stepsList: document.getElementById("stepsList"),
-    stepsEmpty: document.getElementById("stepsEmpty"),
     flowProgress: document.getElementById("flowProgress"),
     progressFill: document.getElementById("progressFill"),
     phoneScreen: document.getElementById("phoneScreen"),
     phoneColumn: document.getElementById("phoneColumn"),
     phoneScaler: document.getElementById("phoneScaler"),
+    webColumn: document.getElementById("webColumn"),
+    webScreen: document.getElementById("webScreen"),
+    webUrl: document.getElementById("webUrl"),
+    surfaceSwitch: document.getElementById("surfaceSwitch"),
     scopeEmptyPhone: document.getElementById("scopeEmptyPhone"),
     demoBar: document.getElementById("demoBar"),
     btnPlay: document.getElementById("btnPlay"),
@@ -2020,9 +3544,6 @@ function cacheElements() {
     autoplaySpeed: document.getElementById("autoplaySpeed"),
     prevBtn: document.getElementById("prevBtn"),
     nextBtn: document.getElementById("nextBtn"),
-    prevBtnSteps: document.getElementById("prevBtnSteps"),
-    nextBtnSteps: document.getElementById("nextBtnSteps"),
-    backToMenu: document.getElementById("backToMenu"),
   };
 }
 
@@ -2032,11 +3553,12 @@ function init() {
   mountScreens();
   bindEvents();
 
-  document.documentElement.classList.add("view-code");
+  document.documentElement.classList.add("view-code", "surface-mobile");
   document.documentElement.classList.remove("view-photo", "mode-ai");
+  applySurfaceClass();
   updateChips();
   goTo(0);
-  fitPhone();
+  fitPreview();
   updatePlayState();
 }
 

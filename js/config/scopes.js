@@ -1,15 +1,30 @@
 /**
- * Epics = top-level demo cases.
- * Add a new entry here when you start a new flow (Pulse, Login, etc.).
+ * Epics = demo cases, grouped by surface (mobile / website).
+ * Add a new entry under the surface when you start a new case.
  */
 export const EPICS = {
-  register: {
-    id: "register",
-    label: "Register",
-    chipClass: "chip-register",
-    description: "Pharmacy registration & complete profile",
+  mobile: {
+    onboarding: {
+      id: "onboarding",
+      label: "Onboarding",
+      chipClass: "chip-onboarding",
+      description: "Pharmacy registration & complete profile",
+    },
+  },
+  website: {
+    pos: {
+      id: "pos",
+      label: "POS",
+      chipClass: "chip-pos",
+      description: "Dosage print setup like receipt and barcode templates, then use it on POS",
+    },
   },
 };
 
-/** @deprecated use EPICS — kept as alias during rename */
-export const SCOPES = EPICS;
+export function epicsFor(surfaceId) {
+  return EPICS[surfaceId] || {};
+}
+
+export function firstEpicId(surfaceId) {
+  return Object.keys(epicsFor(surfaceId))[0] || "";
+}
