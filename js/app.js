@@ -1083,9 +1083,16 @@ const DOSAGE_PHARMACY = {
   pharmacistName: "Ghaidaa Tayseer",
 };
 
+const DOSAGE_TEMPLATES = {
+  "80mm-right": { name: "80mm dosage", printSize: "80mm", alignment: "right", language: "ar" },
+  "58mm-left": { name: "58mm compact", printSize: "58mm", alignment: "left", language: "en" },
+};
+
 const DOSAGE_PRINT = {
+  activeTemplate: "80mm-right",
   alignment: "right",
   printSize: "80mm",
+  language: "ar",
   fields: {
     pharmacyName: true,
     address: true,
@@ -1100,14 +1107,26 @@ const DOSAGE_PRINT = {
 };
 
 const SLIP_LABELS = {
-  address: "العنوان",
-  phone: "هاتف الصيدلية",
-  productName: "اسم الصنف",
-  patientName: "اسم المريض",
-  dosage: "الجرعة",
-  expiryDate: "تاريخ الانتهاء",
-  dispenseDate: "تاريخ الصرف",
-  pharmacistName: "اسم الصيدلي",
+  ar: {
+    address: "العنوان",
+    phone: "هاتف الصيدلية",
+    productName: "اسم الصنف",
+    patientName: "اسم المريض",
+    dosage: "الجرعة",
+    expiryDate: "تاريخ الانتهاء",
+    dispenseDate: "تاريخ الصرف",
+    pharmacistName: "اسم الصيدلي",
+  },
+  en: {
+    address: "Address",
+    phone: "Pharmacy phone",
+    productName: "Product name",
+    patientName: "Patient name",
+    dosage: "Dosage",
+    expiryDate: "Expiry date",
+    dispenseDate: "Dispense date",
+    pharmacistName: "Pharmacist name",
+  },
 };
 
 const DOSAGE_SLIP_SAMPLE = {
@@ -1119,18 +1138,30 @@ const DOSAGE_SLIP_SAMPLE = {
   dispenseDate: "09/09/2026",
 };
 
+function slipLanguage(config = DOSAGE_PRINT) {
+  return config.language === "en" ? "en" : "ar";
+}
+
+function templateMetaText(template) {
+  const align = template.alignment === "left" ? "Left" : template.alignment === "center" ? "Center" : "Right";
+  const lang = template.language === "en" ? "English" : "Arabic";
+  return `${template.printSize} thermal · ${align} · ${lang}`;
+}
+
 function renderDosageReceipt(data, config = DOSAGE_PRINT) {
   const alignment = config.alignment === "left" || config.alignment === "center" ? config.alignment : "right";
   const fields = config.fields;
   const sizeClass = config.printSize === "58mm" ? "pw-slip-58" : "pw-slip-80";
-  const dir = alignment === "right" ? "rtl" : "ltr";
+  const language = slipLanguage(config);
+  const labels = SLIP_LABELS[language];
+  const dir = language === "ar" ? "rtl" : "ltr";
   const line = (key, value) => {
     if (!fields[key]) return "";
-    return `<p class="pw-slip-line">${escapeDosageHtml(SLIP_LABELS[key])} : ${escapeDosageHtml(value || "")}</p>`;
+    return `<p class="pw-slip-line">${escapeDosageHtml(labels[key])} : ${escapeDosageHtml(value || "")}</p>`;
   };
   let dates = "";
   if (fields.expiryDate && fields.dispenseDate) {
-    dates = `<p class="pw-slip-line">${escapeDosageHtml(SLIP_LABELS.expiryDate)} : ${escapeDosageHtml(data.expiryDate || "")} &nbsp;&nbsp; ${escapeDosageHtml(SLIP_LABELS.dispenseDate)} : ${escapeDosageHtml(data.dispenseDate || "")}</p>`;
+    dates = `<p class="pw-slip-line">${escapeDosageHtml(labels.expiryDate)} : ${escapeDosageHtml(data.expiryDate || "")} &nbsp;&nbsp; ${escapeDosageHtml(labels.dispenseDate)} : ${escapeDosageHtml(data.dispenseDate || "")}</p>`;
   } else {
     dates = `${line("expiryDate", data.expiryDate)}${line("dispenseDate", data.dispenseDate)}`;
   }
@@ -1190,6 +1221,9 @@ function bindPrintConfig() {
   const editEl = root.querySelector("[data-dosage-tpl-edit]");
   const previewEl = root.querySelector("[data-slip-preview]");
   let editing = false;
+  let editingId = null;
+  let pendingActivateId = null;
+  let confirmSource = null;
 
   const setTab = (tab) => {
     root.querySelectorAll("[data-cfg-tab]").forEach((btn) => {
@@ -1210,30 +1244,107 @@ function bindPrintConfig() {
     root.querySelectorAll("[data-slip-align]").forEach((btn) => {
       btn.classList.toggle("is-on", btn.dataset.slipAlign === DOSAGE_PRINT.alignment);
     });
+    root.querySelectorAll("[data-slip-lang]").forEach((btn) => {
+      btn.classList.toggle("is-on", btn.dataset.slipLang === slipLanguage());
+    });
+  };
+
+  const applyTemplate = (templateId) => {
+    const template = DOSAGE_TEMPLATES[templateId] || DOSAGE_TEMPLATES["80mm-right"];
+    DOSAGE_PRINT.printSize = template.printSize;
+    DOSAGE_PRINT.alignment = template.alignment;
+    DOSAGE_PRINT.language = slipLanguage(template);
+    return template;
+  };
+
+  const writeEditingTemplate = () => {
+    if (!editingId || !DOSAGE_TEMPLATES[editingId]) return;
+    const template = DOSAGE_TEMPLATES[editingId];
+    const nameEl = root.querySelector("[data-dose-tpl-name]");
+    if (nameEl?.value.trim()) template.name = nameEl.value.trim();
+    template.printSize = DOSAGE_PRINT.printSize;
+    template.alignment = DOSAGE_PRINT.alignment;
+    template.language = slipLanguage();
+  };
+
+  const closeConfirm = () => {
+    pendingActivateId = null;
+    confirmSource = null;
+    syncConfirmUi();
+  };
+
+  const syncConfirmUi = () => {
+    root.querySelectorAll("[data-dose-tpl]").forEach((card) => {
+      const confirming = confirmSource === "card" && pendingActivateId === card.dataset.doseTpl;
+      card.classList.toggle("is-confirming", confirming);
+      const idle = card.querySelector("[data-dose-tpl-idle]");
+      const confirm = card.querySelector("[data-dose-tpl-inline-confirm]");
+      if (idle) idle.hidden = confirming;
+      if (confirm) confirm.hidden = !confirming;
+    });
+    const editConfirming = Boolean(editing && confirmSource === "edit" && pendingActivateId);
+    const copy = root.querySelector("[data-cfg-activate-copy]");
+    const cancel = root.querySelector("[data-cfg-activate-cancel]");
+    const closeBtn = root.querySelector("[data-cfg-close]");
+    const makeBtn = root.querySelector("[data-cfg-make-active]");
+    const confirmOk = root.querySelector("[data-cfg-activate-ok]");
+    const isEditingActive = Boolean(editing && editingId === DOSAGE_PRINT.activeTemplate);
+    if (copy) copy.hidden = !editConfirming;
+    if (cancel) cancel.hidden = !editConfirming;
+    if (confirmOk) confirmOk.hidden = !editConfirming;
+    if (closeBtn) closeBtn.hidden = !editing || editConfirming;
+    if (makeBtn) makeBtn.hidden = !editing || isEditingActive || editConfirming;
+  };
+
+  const syncActiveUi = () => {
+    const isEditingActive = Boolean(editing && editingId === DOSAGE_PRINT.activeTemplate);
+    const editStatus = root.querySelector("[data-dose-tpl-edit-status]");
+    if (editStatus) editStatus.hidden = !editing || !isEditingActive;
+    syncConfirmUi();
   };
 
   const renderPreview = () => {
     if (previewEl) previewEl.innerHTML = renderDosageReceipt(DOSAGE_SLIP_SAMPLE, DOSAGE_PRINT);
-    const cards = root.querySelectorAll("[data-dose-tpl]");
-    cards.forEach((card) => {
-      const active = (DOSAGE_PRINT.printSize === "80mm" && card.dataset.doseTpl === "80mm-right")
-        || (DOSAGE_PRINT.printSize === "58mm" && card.dataset.doseTpl === "58mm-left");
+    root.querySelectorAll("[data-dose-tpl]").forEach((card) => {
+      const active = card.dataset.doseTpl === DOSAGE_PRINT.activeTemplate;
       card.classList.toggle("is-active", active);
+      const title = card.querySelector("[data-dose-tpl-title]");
+      const meta = card.querySelector("[data-dose-tpl-meta]");
+      const badge = card.querySelector("[data-dose-tpl-badge]");
+      const activateBtn = card.querySelector("[data-dose-tpl-active]");
+      const template = DOSAGE_TEMPLATES[card.dataset.doseTpl];
+      if (title && template) title.textContent = template.name;
+      if (meta && template) meta.textContent = templateMetaText(template);
+      if (badge) badge.hidden = !active;
+      if (activateBtn) activateBtn.hidden = active;
     });
+    syncActiveUi();
+  };
+
+  const setActiveTemplate = (templateId) => {
+    if (!DOSAGE_TEMPLATES[templateId]) return;
+    DOSAGE_PRINT.activeTemplate = templateId;
+    if (!editing || editingId !== templateId) applyTemplate(templateId);
+    closeConfirm();
+    renderPreview();
+    showLocalToast(toast, "Template set as active");
+  };
+
+  const requestActivate = (templateId, source) => {
+    if (!DOSAGE_TEMPLATES[templateId] || templateId === DOSAGE_PRINT.activeTemplate) return;
+    pendingActivateId = templateId;
+    confirmSource = source;
+    syncConfirmUi();
   };
 
   const openEditor = (templateId) => {
+    closeConfirm();
     editing = true;
-    if (templateId === "58mm-left") {
-      DOSAGE_PRINT.printSize = "58mm";
-      DOSAGE_PRINT.alignment = "left";
-    } else {
-      DOSAGE_PRINT.printSize = "80mm";
-      DOSAGE_PRINT.alignment = "right";
-    }
+    editingId = templateId;
+    const template = applyTemplate(templateId);
     const nameEl = root.querySelector("[data-dose-tpl-name]");
     const heading = root.querySelector("[data-dose-tpl-heading]");
-    if (nameEl) nameEl.value = templateId === "58mm-left" ? "58mm compact" : "80mm dosage";
+    if (nameEl) nameEl.value = template.name;
     if (heading) heading.textContent = "Edit dosage template";
     if (listEl) listEl.hidden = true;
     if (editEl) editEl.hidden = false;
@@ -1244,6 +1355,9 @@ function bindPrintConfig() {
 
   const closeEditor = () => {
     editing = false;
+    editingId = null;
+    closeConfirm();
+    applyTemplate(DOSAGE_PRINT.activeTemplate);
     if (listEl) listEl.hidden = false;
     if (editEl) editEl.hidden = true;
     setTab("dosage");
@@ -1253,17 +1367,124 @@ function bindPrintConfig() {
   root.querySelectorAll("[data-cfg-tab]").forEach((btn) => {
     btn.onclick = (e) => {
       e.preventDefault();
-      if (btn.dataset.cfgTab !== "dosage") editing = false;
+      if (btn.dataset.cfgTab !== "dosage") {
+        editing = false;
+        editingId = null;
+        closeConfirm();
+        if (listEl) listEl.hidden = false;
+        if (editEl) editEl.hidden = true;
+      }
       setTab(btn.dataset.cfgTab);
+      syncActiveUi();
+    };
+  });
+
+  const bindOpenEditor = (el, templateId) => {
+    if (!el || !templateId) return;
+    el.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openEditor(templateId);
+    };
+  };
+
+  root.querySelectorAll("[data-dose-tpl]").forEach((card) => {
+    card.onclick = (e) => {
+      if (e.target.closest("button")) return;
+      if (confirmSource === "card" && pendingActivateId === card.dataset.doseTpl) return;
+      openEditor(card.dataset.doseTpl);
+    };
+    card.onkeydown = (e) => {
+      if (e.key === "Escape" && confirmSource === "card" && pendingActivateId === card.dataset.doseTpl) {
+        e.preventDefault();
+        closeConfirm();
+        return;
+      }
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        if (confirmSource === "card" && pendingActivateId === card.dataset.doseTpl) {
+          setActiveTemplate(card.dataset.doseTpl);
+          return;
+        }
+        openEditor(card.dataset.doseTpl);
+      }
     };
   });
 
   root.querySelectorAll("[data-dose-tpl-edit]").forEach((btn) => {
+    bindOpenEditor(btn, btn.dataset.doseTplEdit);
+  });
+
+  root.querySelectorAll("[data-dose-tpl-active]").forEach((btn) => {
     btn.onclick = (e) => {
       e.preventDefault();
-      openEditor(btn.dataset.doseTplEdit);
+      e.stopPropagation();
+      requestActivate(btn.dataset.doseTplActive, "card");
     };
   });
+
+  root.querySelectorAll("[data-dose-tpl-confirm-cancel]").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeConfirm();
+    };
+  });
+
+  root.querySelectorAll("[data-dose-tpl-confirm-ok]").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = btn.closest("[data-dose-tpl]");
+      if (card) setActiveTemplate(card.dataset.doseTpl);
+    };
+  });
+
+  const closeBtn = root.querySelector("[data-cfg-close]");
+  if (closeBtn) {
+    closeBtn.onclick = (e) => {
+      e.preventDefault();
+      closeEditor();
+    };
+  }
+
+  const footerActivateBtn = root.querySelector("[data-cfg-make-active]");
+  if (footerActivateBtn) {
+    footerActivateBtn.onclick = (e) => {
+      e.preventDefault();
+      if (editingId) requestActivate(editingId, "edit");
+    };
+  }
+
+  const footerActivateCancel = root.querySelector("[data-cfg-activate-cancel]");
+  if (footerActivateCancel) {
+    footerActivateCancel.onclick = (e) => {
+      e.preventDefault();
+      closeConfirm();
+    };
+  }
+
+  const footerActivateOk = root.querySelector("[data-cfg-activate-ok]");
+  if (footerActivateOk) {
+    footerActivateOk.onclick = (e) => {
+      e.preventDefault();
+      if (pendingActivateId) setActiveTemplate(pendingActivateId);
+    };
+  }
+
+  root.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || !pendingActivateId) return;
+    e.preventDefault();
+    closeConfirm();
+  });
+
+  const testPrintBtn = root.querySelector("[data-dose-tpl-test]");
+  if (testPrintBtn) {
+    testPrintBtn.onclick = (e) => {
+      e.preventDefault();
+      showLocalToast(toast, "Test print sent");
+    };
+  }
 
   const backBtn = root.querySelector("[data-dose-tpl-back]");
   if (backBtn) {
@@ -1284,6 +1505,7 @@ function bindPrintConfig() {
   if (sizeEl) {
     sizeEl.onchange = () => {
       DOSAGE_PRINT.printSize = sizeEl.value;
+      writeEditingTemplate();
       renderPreview();
     };
   }
@@ -1291,6 +1513,16 @@ function bindPrintConfig() {
     btn.onclick = (e) => {
       e.preventDefault();
       DOSAGE_PRINT.alignment = btn.dataset.slipAlign;
+      writeEditingTemplate();
+      syncFieldsFromConfig();
+      renderPreview();
+    };
+  });
+  root.querySelectorAll("[data-slip-lang]").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      DOSAGE_PRINT.language = btn.dataset.slipLang === "en" ? "en" : "ar";
+      writeEditingTemplate();
       syncFieldsFromConfig();
       renderPreview();
     };
@@ -1300,6 +1532,7 @@ function bindPrintConfig() {
   if (saveBtn) {
     saveBtn.onclick = (e) => {
       e.preventDefault();
+      writeEditingTemplate();
       showLocalToast(toast, "Configuration saved");
     };
   }

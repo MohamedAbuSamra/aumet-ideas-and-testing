@@ -1143,7 +1143,11 @@
     }
     .pw-cfg-title {
       font-size: 1.05rem; font-weight: 650; color: #374151;
-      border-bottom: 1px solid #e5e7eb; padding-bottom: 12px;
+      padding-bottom: 0;
+    }
+    .pw-cfg > .pw-page-desc {
+      margin-top: 6px; margin-bottom: 0; padding-bottom: 12px;
+      border-bottom: 1px solid #e5e7eb;
     }
     .pw-tabs {
       display: flex; gap: 4px; border-bottom: 1px solid #e5e7eb; margin-top: 4px;
@@ -1157,6 +1161,11 @@
     .pw-cfg-grid {
       display: grid; grid-template-columns: 1.25fr 0.9fr; gap: 24px;
       padding-top: 20px; align-items: start;
+    }
+    .pw-cfg-grid[hidden],
+    [data-cfg-panel][hidden],
+    [data-dosage-tpl-list][hidden] {
+      display: none !important;
     }
     .pw-cfg-form { display: flex; flex-direction: column; gap: 12px; }
     .pw-cfg-section { font-size: 1rem; font-weight: 650; color: #111827; margin: 18px 0 10px; }
@@ -1174,14 +1183,45 @@
     .pw-cfg-preview-col { display: flex; flex-direction: column; gap: 10px; }
     .pw-btn-block { width: 100%; justify-content: center; height: 40px; }
     .pw-cfg-footer {
-      flex-shrink: 0; display: flex; justify-content: flex-end; gap: 10px;
+      flex-shrink: 0; display: flex; justify-content: flex-end; align-items: center; gap: 10px;
       padding: 12px 28px; background: #fff; border-top: 1px solid #e5e7eb;
     }
+    .pw-cfg-footer-copy {
+      margin: 0 auto 0 0; font-size: 0.84rem; font-weight: 600; color: #475569;
+    }
+    .pw-cfg-edit-head {
+      display: flex; align-items: center; gap: 10px; margin: 18px 0 10px;
+    }
+    .pw-cfg-edit-head .pw-cfg-section { margin: 0; }
+    .pw-cfg-name-row {
+      display: grid; grid-template-columns: 1fr minmax(9rem, auto); gap: 16px; align-items: end;
+    }
+    .pw-tpl-status {
+      display: inline-flex; align-items: center; height: 28px;
+      margin: 0; font-size: 0.75rem; font-weight: 700; color: #fff;
+      background: var(--teal); border-radius: 999px; padding: 0 10px;
+    }
+    .pw-tpl-status-btn { height: 40px; padding: 0 14px; }
+    .pw-cfg-edit-head [data-dose-tpl-edit-status][hidden],
+    [data-cfg-make-active][hidden],
+    [data-cfg-activate-cancel][hidden],
+    [data-cfg-activate-ok][hidden],
+    [data-cfg-activate-copy][hidden],
+    [data-cfg-close][hidden] { display: none !important; }
     .pw-cfg-footer[hidden] { display: none !important; }
     .pw-tpl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
     .pw-tpl-card {
       position: relative; border: 1px solid #e5e7eb; border-radius: 12px;
       padding: 16px; background: #fff; cursor: pointer;
+      transition: box-shadow .15s ease, border-color .15s ease;
+    }
+    .pw-tpl-card:hover {
+      border-color: #d1d5db;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, .08);
+    }
+    .pw-tpl-card:focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 2px;
     }
     .pw-tpl-card.is-active {
       border-color: var(--teal); background: #f0fdfa;
@@ -1196,7 +1236,24 @@
       font-size: 0.65rem; font-weight: 700; padding: 3px 8px;
     }
     .pw-tpl-badge.is-custom { background: #ccfbf1; color: var(--teal-dark); }
-    .pw-tpl-card .pw-lib-card-actions { margin-top: 12px; }
+    .pw-tpl-card .pw-lib-card-actions,
+    .pw-tpl-card-actions {
+      display: flex; align-items: center; gap: 8px; margin-top: 12px;
+    }
+    .pw-tpl-card-actions .pw-btn-ghost,
+    .pw-tpl-card-actions .pw-complete { flex: 1; justify-content: center; margin-top: 0; height: 36px; }
+    .pw-tpl-card [data-dose-tpl-badge][hidden],
+    .pw-tpl-card [data-dose-tpl-active][hidden],
+    .pw-tpl-card [data-dose-tpl-idle][hidden],
+    .pw-tpl-card [data-dose-tpl-inline-confirm][hidden] { display: none !important; }
+    .pw-tpl-card.is-confirming {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 2px rgba(20,184,166,.16);
+    }
+    .pw-tpl-confirm-copy {
+      margin: 12px 0 0; font-size: 0.75rem; font-weight: 600; color: #475569; line-height: 1.4;
+    }
+    .pw-tpl-card-confirm .pw-tpl-card-actions { margin-top: 8px; }
     .pw-slip {
       background: #fff; color: #111;
       font-family: Tahoma, "Segoe UI", Arial, sans-serif;

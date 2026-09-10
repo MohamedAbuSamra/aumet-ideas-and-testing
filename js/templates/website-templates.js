@@ -319,10 +319,11 @@ export const websiteTemplates = {
       ${pwNav("settings")}
       <div class="pw-body">
         <div class="pw-cfg">
-          <h1 class="pw-cfg-title">Receipt and Barcode Configuration</h1>
+          <h1 class="pw-cfg-title">Print Template Configuration</h1>
+          <p class="pw-page-desc">Customize receipts, product labels, and dosage slips from one place.</p>
           <div class="pw-tabs" role="tablist">
             <button type="button" class="pw-tab" data-cfg-tab="receipt" role="tab">Receipt Configuration</button>
-            <button type="button" class="pw-tab" data-cfg-tab="barcode" role="tab">Label Templates</button>
+            <button type="button" class="pw-tab" data-cfg-tab="barcode" role="tab">Barcode & Label Templates</button>
             <button type="button" class="pw-tab is-on" data-cfg-tab="dosage" role="tab">Dosage labels</button>
           </div>
 
@@ -360,7 +361,7 @@ export const websiteTemplates = {
           </div>
 
           <div data-cfg-panel="barcode" hidden>
-            <h3 class="pw-cfg-section">Templates</h3>
+            <h3 class="pw-cfg-section">Barcode & label templates</h3>
             <div class="pw-tpl-grid">
               <article class="pw-tpl-card is-active">
                 <span class="pw-tpl-badge">Active</span>
@@ -388,16 +389,39 @@ export const websiteTemplates = {
           <div data-cfg-panel="dosage">
             <div data-dosage-tpl-list>
               <h3 class="pw-cfg-section">Dosage print templates</h3>
-              <p class="pw-page-desc">Choose a template, then save. POS uses the active one when the sale completes.</p>
+              <p class="pw-page-desc">Click a card or Edit to change it. Make active to use that template when the sale completes.</p>
               <div class="pw-tpl-grid">
-                <article class="pw-tpl-card is-active" data-dose-tpl="80mm-right" data-dose-tpl-edit="80mm-right">
-                  <span class="pw-tpl-badge">Active</span>
-                  <h4>80mm dosage</h4>
-                  <p>80mm thermal · Right</p>
+                <article class="pw-tpl-card is-active" data-dose-tpl="80mm-right" tabindex="0" aria-label="80mm dosage template">
+                  <span class="pw-tpl-badge" data-dose-tpl-badge>Active</span>
+                  <h4 data-dose-tpl-title>80mm dosage</h4>
+                  <p data-dose-tpl-meta>80mm thermal · Right · Arabic</p>
+                  <div class="pw-tpl-card-actions" data-dose-tpl-idle>
+                    <button type="button" class="pw-btn-ghost pw-tpl-edit" data-dose-tpl-edit="80mm-right">Edit</button>
+                    <button type="button" class="pw-btn-ghost" data-dose-tpl-active="80mm-right" hidden>Make active</button>
+                  </div>
+                  <div class="pw-tpl-card-confirm" data-dose-tpl-inline-confirm hidden>
+                    <p class="pw-tpl-confirm-copy">Use this template when the sale completes?</p>
+                    <div class="pw-tpl-card-actions">
+                      <button type="button" class="pw-btn-ghost" data-dose-tpl-confirm-cancel>Cancel</button>
+                      <button type="button" class="pw-complete pw-complete-inline" data-dose-tpl-confirm-ok>Make active</button>
+                    </div>
+                  </div>
                 </article>
-                <article class="pw-tpl-card" data-dose-tpl="58mm-left" data-dose-tpl-edit="58mm-left">
-                  <h4>58mm compact</h4>
-                  <p>58mm thermal · Left</p>
+                <article class="pw-tpl-card" data-dose-tpl="58mm-left" tabindex="0" aria-label="58mm compact template">
+                  <span class="pw-tpl-badge" data-dose-tpl-badge hidden>Active</span>
+                  <h4 data-dose-tpl-title>58mm compact</h4>
+                  <p data-dose-tpl-meta>58mm thermal · Left · English</p>
+                  <div class="pw-tpl-card-actions" data-dose-tpl-idle>
+                    <button type="button" class="pw-btn-ghost pw-tpl-edit" data-dose-tpl-edit="58mm-left">Edit</button>
+                    <button type="button" class="pw-btn-ghost" data-dose-tpl-active="58mm-left">Make active</button>
+                  </div>
+                  <div class="pw-tpl-card-confirm" data-dose-tpl-inline-confirm hidden>
+                    <p class="pw-tpl-confirm-copy">Use this template when the sale completes?</p>
+                    <div class="pw-tpl-card-actions">
+                      <button type="button" class="pw-btn-ghost" data-dose-tpl-confirm-cancel>Cancel</button>
+                      <button type="button" class="pw-complete pw-complete-inline" data-dose-tpl-confirm-ok>Make active</button>
+                    </div>
+                  </div>
                 </article>
               </div>
             </div>
@@ -405,7 +429,10 @@ export const websiteTemplates = {
             <div class="pw-cfg-grid" data-dosage-tpl-edit hidden>
               <div class="pw-cfg-form">
                 <button type="button" class="pw-link pw-link-back" data-dose-tpl-back>Back to list</button>
-                <h3 class="pw-cfg-section" data-dose-tpl-heading>Edit template</h3>
+                <div class="pw-cfg-edit-head">
+                  <h3 class="pw-cfg-section" data-dose-tpl-heading>Edit template</h3>
+                  <span class="pw-tpl-status" data-dose-tpl-edit-status hidden>Active</span>
+                </div>
                 <label class="pw-field"><span>Template name</span>
                   <input type="text" data-dose-tpl-name />
                 </label>
@@ -414,6 +441,12 @@ export const websiteTemplates = {
                     <option value="80mm">80mm</option>
                     <option value="58mm">58mm</option>
                   </select>
+                </label>
+                <label class="pw-field"><span>Print language</span>
+                  <div class="pw-seg pw-align-seg" role="group" aria-label="Print language">
+                    <button type="button" class="pw-seg-btn is-on" data-slip-lang="ar">Arabic</button>
+                    <button type="button" class="pw-seg-btn" data-slip-lang="en">English</button>
+                  </div>
                 </label>
                 <label class="pw-field"><span>Alignment</span>
                   <div class="pw-seg pw-align-seg" role="group" aria-label="Alignment">
@@ -438,11 +471,17 @@ export const websiteTemplates = {
               <div class="pw-cfg-preview-col">
                 <p class="pw-preview-label">Live Preview</p>
                 <div class="pw-cfg-preview-box" data-slip-preview></div>
+                <button type="button" class="pw-btn-outline pw-btn-block" data-dose-tpl-test>${icoPrint} Test Print</button>
               </div>
             </div>
           </div>
         </div>
         <div class="pw-cfg-footer" data-cfg-footer>
+          <p class="pw-cfg-footer-copy" data-cfg-activate-copy hidden>Use this template when the sale completes?</p>
+          <button type="button" class="pw-btn-outline" data-cfg-close>Close</button>
+          <button type="button" class="pw-btn-outline" data-cfg-activate-cancel hidden>Cancel</button>
+          <button type="button" class="pw-btn-outline" data-cfg-make-active hidden>Make active</button>
+          <button type="button" class="pw-complete pw-complete-inline" data-cfg-activate-ok hidden>Make active</button>
           <button type="button" class="pw-complete pw-complete-inline" data-cfg-save>Save</button>
         </div>
       </div>

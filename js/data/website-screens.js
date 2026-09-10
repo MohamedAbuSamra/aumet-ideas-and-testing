@@ -5,7 +5,7 @@
 export const websiteScreens = [
   {
     id: "print-config",
-    label: "Print setup",
+    label: "Print templates",
     epic: "pos",
     group: "Settings",
     url: "pulse.aumet.com/settings/receipt-label",
