@@ -123,9 +123,6 @@ export const websiteTemplates = {
                 <button type="button" class="pw-seg-btn is-on">${icoDetailed} Detailed</button>
               </div>
               <button type="button" class="pw-btn-ghost">${icoColumns} Edit columns</button>
-              <button type="button" class="pw-btn-ghost pw-btn-dose" data-print-all-dosages>
-                ${icoPrint} Print dosages
-              </button>
               <label class="pw-discount">
                 <span>%</span>
                 <input type="text" placeholder="Discount" aria-label="Discount" />
@@ -206,7 +203,7 @@ export const websiteTemplates = {
           <div class="pw-sum-cta">
             <label class="pw-print-check">
               <input type="checkbox" checked data-print-on-complete />
-              Print dosage labels
+              Print dosage
             </label>
             <button type="button" class="pw-complete" data-complete-sale>Complete Sale</button>
           </div>
@@ -219,37 +216,27 @@ export const websiteTemplates = {
           <div class="pw-sheet-head">
             <div>
               <p class="pw-sheet-kicker">Print dosage</p>
-              <h2 id="pw-dosage-title" data-dose-name>Panadol Extra 500mg</h2>
-              <p class="pw-sheet-meta"><span data-dose-form>Tablet · 500 mg</span> · Qty <span data-dose-qty>2</span> · Ahmad Al-Khatib</p>
+              <h2 id="pw-dosage-title" data-dose-name>Dosage</h2>
+              <p class="pw-sheet-meta" data-dose-meta>Select saved text or write your own.</p>
             </div>
             <button type="button" class="pw-nav-ico" data-dosage-close aria-label="Close">${icoClose}</button>
           </div>
 
-          <div class="pw-dose-products" data-dose-products></div>
+          <div class="pw-seg pw-dose-mode" role="tablist" aria-label="Dosage source">
+            <button type="button" class="pw-seg-btn is-on" data-dose-mode="select">Select</button>
+            <button type="button" class="pw-seg-btn" data-dose-mode="write">Write</button>
+          </div>
 
           <div class="pw-dose-body" data-dose-pick-pane>
             <div class="pw-search pw-search-compact">
               ${icoSearch}
-              <input type="search" data-dose-filter placeholder="Find a dosage" aria-label="Search saved dosages" />
+              <input type="search" data-dose-filter placeholder="Find saved text" aria-label="Search saved dosages" />
             </div>
             <div class="pw-combo-list" data-dose-options role="listbox" aria-label="Saved dosages"></div>
           </div>
 
-          <div class="pw-dose-chosen" data-dose-chosen hidden>
-            <div>
-              <p class="pw-sheet-kicker">Dosage</p>
-              <strong data-dose-chosen-title></strong>
-              <span data-dose-chosen-text></span>
-            </div>
-            <button type="button" class="pw-link" data-dose-change>Change</button>
-          </div>
-
           <div class="pw-dose-write" data-dose-write-pane hidden>
-            <div class="pw-dose-write-head">
-              <p class="pw-sheet-kicker">Write for this sale</p>
-              <button type="button" class="pw-link" data-dose-change>Saved dosages</button>
-            </div>
-            <textarea data-dose-text rows="3" placeholder="Take 1 tablet after food."></textarea>
+            <textarea data-dose-text rows="4" placeholder="Take 1 tablet after food."></textarea>
           </div>
 
           <div class="pw-preview-frame pw-dose-preview" data-dose-preview-wrap>
@@ -277,7 +264,7 @@ export const websiteTemplates = {
           <div class="pw-page-head">
             <div>
               <h1 class="pw-page-title">Dosage labels</h1>
-              <p class="pw-page-desc">Phrases cashiers print on a sale. Click a row to edit it in place.</p>
+              <p class="pw-page-desc">Saved phrases to print on a sale. Not linked to products. Click a row to edit it in place.</p>
             </div>
             <button type="button" class="pw-complete pw-complete-inline" data-lib-add>${icoPlus} Add</button>
           </div>

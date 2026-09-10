@@ -936,9 +936,6 @@ const websiteTemplates = {
                 <button type="button" class="pw-seg-btn is-on">${icoDetailed} Detailed</button>
               </div>
               <button type="button" class="pw-btn-ghost">${icoColumns} Edit columns</button>
-              <button type="button" class="pw-btn-ghost pw-btn-dose" data-print-all-dosages>
-                ${icoPrint} Print dosages
-              </button>
               <label class="pw-discount">
                 <span>%</span>
                 <input type="text" placeholder="Discount" aria-label="Discount" />
@@ -1019,7 +1016,7 @@ const websiteTemplates = {
           <div class="pw-sum-cta">
             <label class="pw-print-check">
               <input type="checkbox" checked data-print-on-complete />
-              Print dosage labels
+              Print dosage
             </label>
             <button type="button" class="pw-complete" data-complete-sale>Complete Sale</button>
           </div>
@@ -1032,37 +1029,27 @@ const websiteTemplates = {
           <div class="pw-sheet-head">
             <div>
               <p class="pw-sheet-kicker">Print dosage</p>
-              <h2 id="pw-dosage-title" data-dose-name>Panadol Extra 500mg</h2>
-              <p class="pw-sheet-meta"><span data-dose-form>Tablet · 500 mg</span> · Qty <span data-dose-qty>2</span> · Ahmad Al-Khatib</p>
+              <h2 id="pw-dosage-title" data-dose-name>Dosage</h2>
+              <p class="pw-sheet-meta" data-dose-meta>Select saved text or write your own.</p>
             </div>
             <button type="button" class="pw-nav-ico" data-dosage-close aria-label="Close">${icoClose}</button>
           </div>
 
-          <div class="pw-dose-products" data-dose-products></div>
+          <div class="pw-seg pw-dose-mode" role="tablist" aria-label="Dosage source">
+            <button type="button" class="pw-seg-btn is-on" data-dose-mode="select">Select</button>
+            <button type="button" class="pw-seg-btn" data-dose-mode="write">Write</button>
+          </div>
 
           <div class="pw-dose-body" data-dose-pick-pane>
             <div class="pw-search pw-search-compact">
               ${icoSearch}
-              <input type="search" data-dose-filter placeholder="Find a dosage" aria-label="Search saved dosages" />
+              <input type="search" data-dose-filter placeholder="Find saved text" aria-label="Search saved dosages" />
             </div>
             <div class="pw-combo-list" data-dose-options role="listbox" aria-label="Saved dosages"></div>
           </div>
 
-          <div class="pw-dose-chosen" data-dose-chosen hidden>
-            <div>
-              <p class="pw-sheet-kicker">Dosage</p>
-              <strong data-dose-chosen-title></strong>
-              <span data-dose-chosen-text></span>
-            </div>
-            <button type="button" class="pw-link" data-dose-change>Change</button>
-          </div>
-
           <div class="pw-dose-write" data-dose-write-pane hidden>
-            <div class="pw-dose-write-head">
-              <p class="pw-sheet-kicker">Write for this sale</p>
-              <button type="button" class="pw-link" data-dose-change>Saved dosages</button>
-            </div>
-            <textarea data-dose-text rows="3" placeholder="Take 1 tablet after food."></textarea>
+            <textarea data-dose-text rows="4" placeholder="Take 1 tablet after food."></textarea>
           </div>
 
           <div class="pw-preview-frame pw-dose-preview" data-dose-preview-wrap>
@@ -1090,7 +1077,7 @@ const websiteTemplates = {
           <div class="pw-page-head">
             <div>
               <h1 class="pw-page-title">Dosage labels</h1>
-              <p class="pw-page-desc">Phrases cashiers print on a sale. Click a row to edit it in place.</p>
+              <p class="pw-page-desc">Saved phrases to print on a sale. Not linked to products. Click a row to edit it in place.</p>
             </div>
             <button type="button" class="pw-complete pw-complete-inline" data-lib-add>${icoPlus} Add</button>
           </div>
@@ -2622,25 +2609,6 @@ function filterDosageLibrary(query, pinId) {
   return items.sort(compareDosageTitle);
 }
 
-const DOSAGE_CATALOG = {
-  panadol: {
-    name: "Panadol Extra 500mg",
-    form: "Tablet · 500 mg",
-    qty: "2",
-    expiry: "12/2027",
-    text: "Take 1 tablet every 8 hours after food. Do not exceed 3 tablets in 24 hours.",
-    libraryId: "lib-8h",
-  },
-  brufen: {
-    name: "Brufen 400mg",
-    form: "Tablet · 400 mg",
-    qty: "1",
-    expiry: "06/2026",
-    text: "",
-    libraryId: null,
-  },
-};
-
 const DOSAGE_PHARMACY = {
   pharmacyName: "Ghaidaa Tayseer Pharmacy",
   address: "Jordan-Amman-Amman - وادي السير - بجانب أسواق نبع وادي السير حي القيسية",
@@ -2721,18 +2689,21 @@ function renderDosageReceipt(data, config = DOSAGE_PRINT) {
   const labels = SLIP_LABELS[language];
   const dir = language === "ar" ? "rtl" : "ltr";
   const line = (key, value) => {
-    if (!fields[key]) return "";
-    return `<p class="pw-slip-line">${escapeDosageHtml(labels[key])} : ${escapeDosageHtml(value || "")}</p>`;
+    if (!fields[key] || !String(value || "").trim()) return "";
+    return `<p class="pw-slip-line">${escapeDosageHtml(labels[key])} : ${escapeDosageHtml(value)}</p>`;
   };
   let dates = "";
-  if (fields.expiryDate && fields.dispenseDate) {
-    dates = `<p class="pw-slip-line">${escapeDosageHtml(labels.expiryDate)} : ${escapeDosageHtml(data.expiryDate || "")} &nbsp;&nbsp; ${escapeDosageHtml(labels.dispenseDate)} : ${escapeDosageHtml(data.dispenseDate || "")}</p>`;
+  if (fields.expiryDate && fields.dispenseDate && String(data.expiryDate || "").trim() && String(data.dispenseDate || "").trim()) {
+    dates = `<p class="pw-slip-line">${escapeDosageHtml(labels.expiryDate)} : ${escapeDosageHtml(data.expiryDate)} &nbsp;&nbsp; ${escapeDosageHtml(labels.dispenseDate)} : ${escapeDosageHtml(data.dispenseDate)}</p>`;
   } else {
     dates = `${line("expiryDate", data.expiryDate)}${line("dispenseDate", data.dispenseDate)}`;
   }
+  const pharmacy = fields.pharmacyName && String(data.pharmacyName || "").trim()
+    ? `<p class="pw-slip-pharmacy">${escapeDosageHtml(data.pharmacyName)}</p>`
+    : "";
   return `
     <div class="pw-slip ${sizeClass} pw-slip-${alignment}" dir="${dir}">
-      ${fields.pharmacyName ? `<p class="pw-slip-pharmacy">${escapeDosageHtml(data.pharmacyName || "")}</p>` : ""}
+      ${pharmacy}
       ${line("address", data.address)}
       ${line("phone", data.phone)}
       ${line("productName", data.productName)}
@@ -2743,13 +2714,27 @@ function renderDosageReceipt(data, config = DOSAGE_PRINT) {
     </div>`;
 }
 
-function slipDataForProduct(item) {
+function productFromCartRow(row) {
+  if (!row) return null;
+  const cells = row.querySelectorAll("td");
+  const name = row.querySelector(".pw-product-name")?.textContent.trim() || "";
+  if (!name) return null;
+  return {
+    id: row.dataset.doseRow || "",
+    name,
+    expiry: cells[3]?.textContent.trim() || "",
+    uom: cells[4]?.textContent.trim() || "",
+    qty: row.querySelector(".pw-qty-val")?.textContent.trim() || "",
+  };
+}
+
+function slipDataForPrint(text, product) {
   return {
     ...DOSAGE_PHARMACY,
-    productName: item.name,
-    patientName: "Ahmad Al-Khatib",
-    dosage: item.text,
-    expiryDate: item.expiry,
+    productName: product?.name || "",
+    patientName: "",
+    dosage: text,
+    expiryDate: product?.expiry || "",
     dispenseDate: "09/09/2026",
   };
 }
@@ -3124,12 +3109,6 @@ function bindDosageLibrary() {
   let flashId = null;
   let focusEditor = false;
 
-  const unlinkCatalog = (id) => {
-    Object.values(DOSAGE_CATALOG).forEach((product) => {
-      if (product.libraryId === id) product.libraryId = null;
-    });
-  };
-
   const searchQuery = () => (searchEl?.value || "").trim();
 
   const isDirty = () => {
@@ -3299,9 +3278,6 @@ function bindDosageLibrary() {
     if (current) {
       current.title = title;
       current.text = text;
-      Object.values(DOSAGE_CATALOG).forEach((product) => {
-        if (product.libraryId === current.id) product.text = text;
-      });
       focusId = current.id;
       showLocalToast(toast, "Label saved");
     } else {
@@ -3418,7 +3394,6 @@ function bindDosageLibrary() {
           draft = { title: "", text: "" };
         }
         dosageLibrary = dosageLibrary.filter((item) => item.id !== pendingDeleteId);
-        unlinkCatalog(pendingDeleteId);
         showLocalToast(toast, "Label deleted");
       }
       pendingDeleteId = null;
@@ -3444,173 +3419,85 @@ function bindDosageFlow() {
   const root = document.querySelector(".screen.active .pw");
   if (!root || !root.querySelector("#pw-dosage-sheet")) return;
 
-  const WRITE_VALUE = "__write__";
-  const catalogIds = () => Object.keys(DOSAGE_CATALOG);
   const sheet = root.querySelector("#pw-dosage-sheet");
   const toast = root.querySelector("[data-dose-toast]");
   const textEl = root.querySelector("[data-dose-text]");
   const writePane = root.querySelector("[data-dose-write-pane]");
   const pickPane = root.querySelector("[data-dose-pick-pane]");
-  const chosenEl = root.querySelector("[data-dose-chosen]");
-  const chosenTitle = root.querySelector("[data-dose-chosen-title]");
-  const chosenText = root.querySelector("[data-dose-chosen-text]");
   const filterEl = root.querySelector("[data-dose-filter]");
   const optionsEl = root.querySelector("[data-dose-options]");
-  const productsEl = root.querySelector("[data-dose-products]");
   const previewEl = root.querySelector("[data-dose-preview-host]");
-  const previewWrap = root.querySelector("[data-dose-preview-wrap]");
   const printBtn = root.querySelector("[data-dose-print]");
-  const printLabel = root.querySelector("[data-dose-print-label]");
-  let currentId = "panadol";
-  let pendingComplete = false;
-  let printQueue = false;
+  const nameEl = root.querySelector("[data-dose-name]");
+  const metaEl = root.querySelector("[data-dose-meta]");
+  let mode = "select";
   let selectedDoseId = "";
-  let listOpen = false;
-
-  const openSheet = (id, queue) => {
-    printQueue = Boolean(queue);
-    fillSheet(id);
-    if (sheet) sheet.hidden = false;
-  };
+  let pendingComplete = false;
+  let activeProduct = null;
 
   const currentText = () => {
-    if (selectedDoseId === WRITE_VALUE) return textEl?.value.trim() || "";
+    if (mode === "write") return textEl?.value.trim() || "";
     return findDosageLabel(selectedDoseId)?.text || "";
   };
 
-  const isLastInQueue = () => {
-    const ids = catalogIds();
-    return ids.indexOf(currentId) === ids.length - 1;
-  };
-
-  const syncPrintButton = () => {
-    const ready = Boolean(currentText());
-    if (printBtn) printBtn.disabled = !ready;
-    if (printLabel) {
-      printLabel.textContent = printQueue && !isLastInQueue() ? "Print & next" : "Print";
+  const syncProductHeader = () => {
+    if (nameEl) nameEl.textContent = activeProduct?.name || "Dosage";
+    if (metaEl) {
+      metaEl.textContent = activeProduct
+        ? `${activeProduct.uom} · Qty ${activeProduct.qty} · Exp ${activeProduct.expiry}`
+        : "Select saved text or write your own.";
     }
   };
 
-  const syncPreview = () => {
-    const item = DOSAGE_CATALOG[currentId];
-    if (!previewEl || !item) return;
-    previewEl.innerHTML = renderDosageReceipt(
-      slipDataForProduct({ ...item, text: currentText() }),
-      DOSAGE_PRINT
-    );
-    syncPrintButton();
+  const syncPrintButton = () => {
+    if (printBtn) printBtn.disabled = !currentText();
   };
 
-  const renderProducts = () => {
-    if (!productsEl) return;
-    const ids = catalogIds();
-    productsEl.hidden = ids.length < 2;
-    productsEl.innerHTML = ids.map((id) => {
-      const item = DOSAGE_CATALOG[id];
-      const ready = Boolean(item.text);
-      return `
-        <button type="button" class="pw-dose-pill${id === currentId ? " is-on" : ""}" data-dose-product="${id}">
-          <span>${escapeDosageHtml(item.name)}</span>
-          ${ready ? `<em>Ready</em>` : ""}
-        </button>`;
-    }).join("");
+  const syncPreview = () => {
+    if (previewEl) {
+      previewEl.innerHTML = renderDosageReceipt(slipDataForPrint(currentText(), activeProduct), DOSAGE_PRINT);
+    }
+    syncPrintButton();
   };
 
   const renderDoseOptions = () => {
     if (!optionsEl) return;
-    const query = (filterEl?.value || "").trim();
-    let items = filterDosageLibrary(query);
-    if (selectedDoseId && selectedDoseId !== WRITE_VALUE && !items.some((item) => item.id === selectedDoseId)) {
-      const pinned = findDosageLabel(selectedDoseId);
-      if (pinned) items = [pinned, ...items.filter((item) => item.id !== pinned.id)];
-    }
+    const items = filterDosageLibrary((filterEl?.value || "").trim());
     optionsEl.innerHTML = [
       ...items.map((item) => `
         <button type="button" class="pw-combo-item${item.id === selectedDoseId ? " is-on" : ""}" data-dose-pick="${item.id}">
           <strong>${escapeDosageHtml(item.title)}</strong>
           <span>${escapeDosageHtml(item.text)}</span>
         </button>`),
-      items.length
-        ? ""
-        : `<p class="pw-lib-pick-empty">No dosages match that search.</p>`,
-      `<button type="button" class="pw-combo-item pw-combo-write${selectedDoseId === WRITE_VALUE ? " is-on" : ""}" data-dose-pick="${WRITE_VALUE}">Write a one-off…</button>`,
+      items.length ? "" : `<p class="pw-lib-pick-empty">No saved text matches that search.</p>`,
     ].join("");
   };
 
-  const applySelectMode = () => {
-    const isWrite = selectedDoseId === WRITE_VALUE;
-    const saved = !isWrite && findDosageLabel(selectedDoseId);
-    const showList = listOpen || (!saved && !isWrite);
-    if (pickPane) pickPane.hidden = !showList;
-    if (chosenEl) chosenEl.hidden = showList || isWrite || !saved;
-    if (writePane) writePane.hidden = !isWrite;
-    if (previewWrap) previewWrap.hidden = showList;
-    if (saved) {
-      if (chosenTitle) chosenTitle.textContent = saved.title;
-      if (chosenText) chosenText.textContent = saved.text;
-    }
-    if (isWrite && textEl && !textEl.value) {
-      const item = DOSAGE_CATALOG[currentId];
-      if (item?.text && !findDosageLabel(item.libraryId)) textEl.value = item.text;
-    }
-    renderProducts();
+  const applyMode = () => {
+    root.querySelectorAll("[data-dose-mode]").forEach((btn) => {
+      btn.classList.toggle("is-on", btn.dataset.doseMode === mode);
+    });
+    if (pickPane) pickPane.hidden = mode !== "select";
+    if (writePane) writePane.hidden = mode !== "write";
     renderDoseOptions();
     syncPreview();
   };
 
-  const fillSheet = (id) => {
-    const item = DOSAGE_CATALOG[id];
-    if (!item) return;
-    currentId = id;
-    const matchedId = item.libraryId && findDosageLabel(item.libraryId)
-      ? item.libraryId
-      : dosageLibrary.find((label) => label.text === item.text)?.id || "";
-    root.querySelectorAll("[data-dose-name]").forEach((el) => {
-      el.textContent = item.name;
-    });
-    const formEl = root.querySelector("[data-dose-form]");
-    const qtyEl = root.querySelector("[data-dose-qty]");
-    if (formEl) formEl.textContent = item.form;
-    if (qtyEl) qtyEl.textContent = item.qty;
-    if (textEl) textEl.value = matchedId ? "" : item.text;
+  const openSheet = (product) => {
+    activeProduct = product || null;
+    mode = "select";
+    selectedDoseId = "";
     if (filterEl) filterEl.value = "";
-    if (matchedId) {
-      selectedDoseId = matchedId;
-      listOpen = false;
-    } else if (item.text) {
-      selectedDoseId = WRITE_VALUE;
-      listOpen = false;
-    } else {
-      selectedDoseId = "";
-      listOpen = true;
-    }
-    applySelectMode();
-  };
-
-  const saveCurrent = () => {
-    const item = DOSAGE_CATALOG[currentId];
-    if (!item) return false;
-    const text = currentText();
-    if (!text) return false;
-    item.text = text;
-    item.libraryId = selectedDoseId && selectedDoseId !== WRITE_VALUE ? selectedDoseId : null;
-    return true;
+    if (textEl) textEl.value = "";
+    syncProductHeader();
+    applyMode();
+    if (sheet) sheet.hidden = false;
   };
 
   const sendToPrinter = () => {
-    if (!saveCurrent()) {
-      if (selectedDoseId === WRITE_VALUE) textEl?.focus();
-      else {
-        listOpen = true;
-        applySelectMode();
-        filterEl?.focus();
-      }
-      return;
-    }
-    const nextId = printQueue ? catalogIds()[catalogIds().indexOf(currentId) + 1] : null;
-    if (nextId) {
-      showLocalToast(toast, "Printed · next item");
-      fillSheet(nextId);
+    if (!currentText()) {
+      if (mode === "write") textEl?.focus();
+      else filterEl?.focus();
       return;
     }
     if (sheet) sheet.hidden = true;
@@ -3619,53 +3506,36 @@ function bindDosageFlow() {
       pendingComplete ? "Sale completed · dosage sent to printer" : "Dosage sent to printer"
     );
     pendingComplete = false;
-    printQueue = false;
   };
 
   root.querySelectorAll("[data-dosage-close]").forEach((el) => {
     el.onclick = (e) => {
       e.preventDefault();
       pendingComplete = false;
-      printQueue = false;
       if (sheet) sheet.hidden = true;
     };
   });
 
-  if (filterEl) {
-    filterEl.oninput = () => {
-      renderDoseOptions();
+  root.querySelectorAll("[data-dose-mode]").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      mode = btn.dataset.doseMode === "write" ? "write" : "select";
+      applyMode();
+      if (mode === "write") textEl?.focus();
+      else filterEl?.focus();
     };
-  }
+  });
+
+  if (filterEl) filterEl.oninput = renderDoseOptions;
   if (optionsEl) {
     optionsEl.onclick = (e) => {
       const pick = e.target.closest("[data-dose-pick]");
       if (!pick) return;
       e.preventDefault();
       selectedDoseId = pick.dataset.dosePick;
-      listOpen = false;
-      applySelectMode();
-      if (selectedDoseId === WRITE_VALUE) textEl?.focus();
+      applyMode();
     };
   }
-  if (productsEl) {
-    productsEl.onclick = (e) => {
-      const pill = e.target.closest("[data-dose-product]");
-      if (!pill || pill.dataset.doseProduct === currentId) return;
-      e.preventDefault();
-      if (currentText()) saveCurrent();
-      fillSheet(pill.dataset.doseProduct);
-    };
-  }
-  root.querySelectorAll("[data-dose-change]").forEach((btn) => {
-    btn.onclick = (e) => {
-      e.preventDefault();
-      listOpen = true;
-      if (selectedDoseId === WRITE_VALUE) selectedDoseId = "";
-      if (filterEl) filterEl.value = "";
-      applySelectMode();
-      filterEl?.focus();
-    };
-  });
   if (textEl) textEl.oninput = syncPreview;
 
   if (printBtn) {
@@ -3675,20 +3545,12 @@ function bindDosageFlow() {
     };
   }
 
-  const printAllBtn = root.querySelector("[data-print-all-dosages]");
-  if (printAllBtn) {
-    printAllBtn.onclick = (e) => {
-      e.preventDefault();
-      pendingComplete = false;
-      openSheet(catalogIds()[0], true);
-    };
-  }
-
-  root.querySelectorAll("[data-print-row]").forEach((btn) => {
+  const printRowBtns = root.querySelectorAll("[data-print-row]");
+  printRowBtns.forEach((btn) => {
     btn.onclick = (e) => {
       e.preventDefault();
       pendingComplete = false;
-      openSheet(btn.dataset.printRow, false);
+      openSheet(productFromCartRow(btn.closest("tr")));
     };
   });
 
@@ -3699,7 +3561,7 @@ function bindDosageFlow() {
       const printOnComplete = root.querySelector("[data-print-on-complete]");
       if (printOnComplete && printOnComplete.checked) {
         pendingComplete = true;
-        openSheet(catalogIds()[0], true);
+        openSheet();
         return;
       }
       showLocalToast(toast, "Sale completed");

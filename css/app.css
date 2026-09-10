@@ -943,26 +943,10 @@
       flex-shrink: 0; padding: 16px 16px 8px; align-items: flex-start;
     }
     .pw-dose-panel .pw-sheet-meta { margin-top: 4px; }
-    .pw-dose-products {
-      flex-shrink: 0; display: flex; gap: 6px;
-      padding: 0 16px 12px; overflow-x: auto;
+    .pw-dose-mode {
+      flex-shrink: 0; margin: 4px 16px 12px; width: auto;
     }
-    .pw-dose-products[hidden] { display: none !important; }
-    .pw-dose-pill {
-      display: inline-flex; align-items: center; gap: 6px;
-      border: 1px solid #e2e8f0; background: #fff; border-radius: 999px;
-      padding: 6px 10px; font: inherit; font-size: 0.72rem; font-weight: 700;
-      color: #475569; cursor: pointer; white-space: nowrap; max-width: 100%;
-    }
-    .pw-dose-pill span {
-      overflow: hidden; text-overflow: ellipsis; max-width: 11rem;
-    }
-    .pw-dose-pill em {
-      font-style: normal; font-size: 0.62rem; font-weight: 700;
-      color: #0f766e; background: #ccfbf1; border-radius: 999px; padding: 1px 6px;
-    }
-    .pw-dose-pill.is-on { background: #0f172a; color: #fff; border-color: #0f172a; }
-    .pw-dose-pill.is-on em { background: rgba(255,255,255,0.16); color: #99f6e4; }
+    .pw-dose-mode .pw-seg-btn { flex: 1; justify-content: center; height: 36px; }
     .pw-dose-body {
       flex: 1; min-height: 0; display: flex; flex-direction: column;
       gap: 8px; padding: 0 16px;
@@ -982,13 +966,13 @@
       display: block; margin-top: 4px; font-size: 0.75rem; color: #475569; line-height: 1.4;
     }
     .pw-dose-write {
-      flex-shrink: 0; margin: 0 16px;
+      flex: 1; min-height: 0; margin: 0 16px;
       display: flex; flex-direction: column; gap: 8px;
     }
-    .pw-dose-write-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
     .pw-dose-write textarea {
-      width: 100%; border: 1px solid #d1d5db; border-radius: 12px; padding: 10px 12px;
-      font: inherit; font-weight: 500; color: #334155; resize: vertical; min-height: 88px;
+      width: 100%; flex: 1; min-height: 88px; border: 1px solid #d1d5db;
+      border-radius: 12px; padding: 10px 12px;
+      font: inherit; font-weight: 500; color: #334155; resize: vertical;
     }
     .pw-dose-chosen[hidden], .pw-dose-write[hidden], .pw-dose-preview[hidden] { display: none !important; }
     .pw-dose-preview {
@@ -1001,8 +985,6 @@
       border-top: 1px solid #f1f5f9;
     }
     .pw-complete:disabled { opacity: 0.4; cursor: not-allowed; }
-    .pw-dose-mode { align-self: stretch; justify-content: stretch; }
-    .pw-dose-mode .pw-seg-btn { flex: 1; justify-content: center; height: 32px; }
     .pw-search-compact {
       height: 38px; padding-inline-end: 12px;
     }
