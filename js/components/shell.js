@@ -36,8 +36,8 @@ export function renderShell() {
     <main class="stage">
       <div class="stage-toolbar">
         <div class="surface-switch" id="surfaceSwitch" role="tablist" aria-label="Preview device">
-          <button type="button" class="surface-btn active" role="tab" data-surface="mobile" aria-selected="true">Mobile</button>
-          <button type="button" class="surface-btn" role="tab" data-surface="website" aria-selected="false">Website</button>
+          <a class="surface-btn active" role="tab" data-surface="mobile" href="#/mobile/onboarding" aria-selected="true">Mobile</a>
+          <a class="surface-btn" role="tab" data-surface="website" href="#/website/pos" aria-selected="false">Website</a>
         </div>
       </div>
       <div class="stage-inner">

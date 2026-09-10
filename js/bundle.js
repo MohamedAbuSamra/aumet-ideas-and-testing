@@ -1281,7 +1281,7 @@ const EPICS = {
   website: {
     pos: {
       id: "pos",
-      label: "POS",
+      label: "Dosage labels",
       chipClass: "chip-pos",
       description: "Dosage print setup like receipt and barcode templates, then use it on POS",
     },
@@ -1461,8 +1461,8 @@ function renderShell() {
     <main class="stage">
       <div class="stage-toolbar">
         <div class="surface-switch" id="surfaceSwitch" role="tablist" aria-label="Preview device">
-          <button type="button" class="surface-btn active" role="tab" data-surface="mobile" aria-selected="true">Mobile</button>
-          <button type="button" class="surface-btn" role="tab" data-surface="website" aria-selected="false">Website</button>
+          <a class="surface-btn active" role="tab" data-surface="mobile" href="#/mobile/onboarding" aria-selected="true">Mobile</a>
+          <a class="surface-btn" role="tab" data-surface="website" href="#/website/pos" aria-selected="false">Website</a>
         </div>
       </div>
       <div class="stage-inner">
@@ -1655,13 +1655,10 @@ function renderEpicChips() {
     .map((id) => {
       const epic = epics[id];
       const on = id === state.epic ? " active" : "";
-      return `<button type="button" class="chip ${epic.chipClass || ""}${on}" data-epic="${id}">${epic.label}</button>`;
+      const screen = id === state.epic ? currentScreenId() : "";
+      return `<a class="chip ${epic.chipClass || ""}${on}" data-epic="${id}" href="${routeHash(state.surface, id, screen)}">${epic.label}</a>`;
     })
     .join("");
-
-  els.epicChips.querySelectorAll("[data-epic]").forEach((btn) => {
-    btn.addEventListener("click", () => setEpic(btn.dataset.epic));
-  });
 }
 
 function updateChips() {
@@ -1683,9 +1680,13 @@ function updateChips() {
 
   const surface = SURFACES[state.surface];
   els.surfaceSwitch?.querySelectorAll("[data-surface]").forEach((btn) => {
-    const on = btn.dataset.surface === state.surface;
+    const id = btn.dataset.surface;
+    const on = id === state.surface;
+    const epic = on ? state.epic : firstEpicId(id);
+    const screen = on ? currentScreenId() : "";
     btn.classList.toggle("active", on);
     btn.setAttribute("aria-selected", String(on));
+    btn.setAttribute("href", routeHash(id, epic, screen));
   });
 
   const flow = activeFlow();
@@ -1703,6 +1704,55 @@ function updateChips() {
   if (els.scopeEmptyPhone) els.scopeEmptyPhone.hidden = !mobile || !empty;
 }
 
+function currentScreenId() {
+  return activeFlow()[state.current]?.id || "";
+}
+
+function routeHash(surface, epic, screen) {
+  const parts = [surface, epic];
+  if (screen) parts.push(screen);
+  return `#/${parts.join("/")}`;
+}
+
+function parseRoute() {
+  const raw = (window.location.hash || "").replace(/^#\/?/, "").trim();
+  const parts = raw.split("/").filter(Boolean);
+  let surface = parts[0];
+  let epic = parts[1];
+  const screen = parts[2] || "";
+  if (!SURFACES[surface]) surface = "mobile";
+  if (!epicsFor(surface)[epic]) epic = firstEpicId(surface) || "";
+  const flow = EPIC_SCREENS[surface]?.[epic] || [];
+  let index = screen ? flow.findIndex((step) => step.id === screen) : 0;
+  if (index < 0) index = 0;
+  return { surface, epic, index };
+}
+
+function writeRoute(mode = "replace") {
+  const hash = routeHash(state.surface, state.epic, currentScreenId());
+  if (window.location.hash === hash) return;
+  if (mode === "push") history.pushState(null, "", hash);
+  else history.replaceState(null, "", hash);
+}
+
+function routeMatchesState(route) {
+  return state.surface === route.surface
+    && state.epic === route.epic
+    && state.current === route.index;
+}
+
+function applyRoute() {
+  const route = parseRoute();
+  const switched = state.surface !== route.surface || state.epic !== route.epic;
+  state.surface = route.surface;
+  state.epic = route.epic;
+  if (switched) pauseDemo();
+  applySurfaceClass();
+  goTo(route.index, { fromRoute: true });
+  writeRoute("replace");
+  if (switched) fitPreview();
+}
+
 function applySurfaceClass() {
   document.documentElement.classList.toggle("surface-mobile", state.surface === "mobile");
   document.documentElement.classList.toggle("surface-website", state.surface === "website");
@@ -1716,7 +1766,8 @@ function setSurface(surfaceId) {
   pauseDemo();
   applySurfaceClass();
   updateChips();
-  goTo(0);
+  goTo(0, { fromRoute: true });
+  writeRoute("push");
   fitPreview();
 }
 
@@ -1725,7 +1776,8 @@ function setEpic(epicId) {
   state.epic = epicId;
   state.current = 0;
   updateChips();
-  goTo(0);
+  goTo(0, { fromRoute: true });
+  writeRoute("push");
   fitPreview();
 }
 
@@ -3399,7 +3451,7 @@ function bindOtpInputs() {
   });
 }
 
-function goTo(index) {
+function goTo(index, opts = {}) {
   const flow = activeFlow();
   if (!flow.length) {
     state.current = 0;
@@ -3407,6 +3459,7 @@ function goTo(index) {
     if (els.progressFill) els.progressFill.style.width = "0%";
     if (els.prevBtn) els.prevBtn.disabled = true;
     if (els.nextBtn) els.nextBtn.disabled = true;
+    if (!opts.fromRoute) writeRoute("replace");
     requestAnimationFrame(fitPreview);
     return;
   }
@@ -3440,6 +3493,8 @@ function goTo(index) {
     }
   }
 
+  if (!opts.fromRoute) writeRoute("replace");
+  updateChips();
   requestAnimationFrame(fitPreview);
 }
 
@@ -3477,10 +3532,15 @@ function fitToStage(column, cssVar, minScale) {
   document.documentElement.style.setProperty(cssVar, Math.max(minScale, scale));
 }
 
+function onRouteChange() {
+  const route = parseRoute();
+  if (routeMatchesState(route)) return;
+  applyRoute();
+}
+
 function bindEvents() {
-  els.surfaceSwitch?.querySelectorAll("[data-surface]").forEach((btn) => {
-    btn.addEventListener("click", () => setSurface(btn.dataset.surface));
-  });
+  window.addEventListener("hashchange", onRouteChange);
+  window.addEventListener("popstate", onRouteChange);
 
   document.querySelectorAll("#demoBar [data-ai-outcome]").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -3553,12 +3613,9 @@ function init() {
   mountScreens();
   bindEvents();
 
-  document.documentElement.classList.add("view-code", "surface-mobile");
+  document.documentElement.classList.add("view-code");
   document.documentElement.classList.remove("view-photo", "mode-ai");
-  applySurfaceClass();
-  updateChips();
-  goTo(0);
-  fitPreview();
+  applyRoute();
   updatePlayState();
 }
 

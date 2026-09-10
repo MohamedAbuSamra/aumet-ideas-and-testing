@@ -144,6 +144,7 @@
       border-radius: 999px; padding: 8px 14px;
       font-size: 0.84rem; font-weight: 600; color: #475569;
       cursor: pointer; line-height: 1.25; transition: 0.15s;
+      text-decoration: none; display: inline-flex; align-items: center;
     }
     .chip:hover { border-color: #cbd5e1; color: var(--label); }
     .chip.active { color: var(--teal-dark); background: var(--teal-light); border-color: #99f6e4; }
@@ -467,6 +468,10 @@
       cursor: pointer;
       line-height: 1.2;
       transition: 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .surface-btn:hover {
