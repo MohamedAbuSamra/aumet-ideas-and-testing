@@ -1,0 +1,157 @@
+    /* Verify OTP */
+    .otp {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      color: #1a1a1a;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+    }
+    .otp-topbar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 44px;
+      height: 44px;
+      display: grid;
+      grid-template-columns: 44px 1fr 52px;
+      align-items: center;
+      padding: 0 8px;
+    }
+    .otp-back {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: transparent;
+      color: #5b6572;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      padding: 0;
+    }
+    .otp-back .ca-ico-back {
+      color: #5b6572;
+      width: 22px;
+      height: 22px;
+    }
+    .otp-title {
+      margin: 0;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .otp-skip {
+      border: none;
+      background: transparent;
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0 6px;
+      justify-self: end;
+    }
+    .otp-sent {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      top: 108px;
+      margin: 0;
+      text-align: center;
+      font-size: 13px;
+      color: #3c495a;
+      line-height: 1.4;
+    }
+    .otp-sent strong {
+      color: #1a1a1a;
+      font-weight: 700;
+    }
+    .otp-edit {
+      color: var(--teal);
+      font-weight: 600;
+      text-decoration: none;
+      margin-left: 2px;
+    }
+    .otp-boxes {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 160px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+    .otp-box {
+      width: 100%;
+      aspect-ratio: 1;
+      max-height: 48px;
+      border: 1.5px solid #dce3ec;
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+      outline: none;
+      padding: 0;
+    }
+    .otp-box:focus {
+      border-color: var(--teal);
+    }
+    .otp-missed {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      top: 236px;
+      margin: 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .otp-timer {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      top: 258px;
+      margin: 0;
+      text-align: center;
+      font-size: 12.5px;
+      color: #9aa3ae;
+    }
+    .otp-divider {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 300px;
+      height: 1px;
+      background: #eef2f6;
+    }
+    .otp-support {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 320px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      background: transparent;
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .otp-support-ico {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+    }
+    .otp-support-ico svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }

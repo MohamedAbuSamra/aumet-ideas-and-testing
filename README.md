@@ -2,33 +2,58 @@
 
 Interactive prototypes for reviewing Aumet product ideas — mobile and website — before they go to engineering.
 
+Read this file before editing. Screen markup lives in **HTML**, not JavaScript template strings.
+
 **Live demo:** https://mohamedabusamra.github.io/aumet-ideas-and-testing/
 
-## Surfaces
+## Layout
 
-- **Mobile** — pharmacy registration and complete profile
-- **Website** — Pulse POS dosage labels (print setup, saved phrases, cart print)
+```
+features/
+  shell/                      demo chrome (sidebar, phone, website frame)
+  mobile/                     phone surface
+    onboarding/               epic
+      landing/                screen: html + css + js
+      create-account/
+      ...
+    login/                    linked login screen (not in the onboarding step list)
+  website/                    desktop surface
+    pos/                      Dosage labels epic
+      print-config/
+      dosage-library/
+      pos-index/
+js/                           app shell: state, route, mount, bind
+css/tokens.css                color and scale tokens
+css/app.css                   generated — do not edit
+js/bundle.js                  generated — do not edit
+js/generated/templates.js     generated — do not edit
+```
 
-Switch surfaces and epics from the toolbar, or jump with the URL:
+## Surfaces and epics
+
+- **Mobile → Onboarding** — pharmacy registration and complete profile
+- **Website → Dosage labels** — print setup, saved phrases, POS print
+
+URLs:
 
 - `#/mobile/onboarding/landing`
 - `#/website/pos/pos-index`
 
 ## Quick start
 
-Open `index.html` in a browser (double-click works — uses the bundled `js/bundle.js`).
+Open `index.html` in a browser (double-click uses `js/bundle.js`).
 
-Or run a local server:
+Or:
 
 ```bash
 python3 -m http.server
 # open http://localhost:8000
 ```
 
-## After editing JavaScript
+## After editing a screen
 
-Rebuild the bundle so `index.html` picks up changes when opened without a server:
+Change the feature's `.html` / `.css` / `.js`, then rebuild:
 
 ```bash
-node scripts/build-bundle.cjs
+npm run build
 ```

@@ -1,0 +1,17 @@
+---
+description: Feature-folder layout and HTML-first screens for this prototype
+alwaysApply: true
+---
+
+# Feature folders
+
+This is a static prototype. Screens are **surface → epic → screen**, not a flat `js/` dump.
+
+- Markup belongs in `features/<surface>/<epic>/<screen>/<screen>.html`
+- Unique CSS/JS live in that same folder
+- Shared epic chrome goes in that epic's `shared/`
+- Demo chrome is `features/shell/`
+- Do not rebuild screens as JavaScript template strings
+- Do not edit `css/app.css`, `js/bundle.js`, or `js/generated/templates.js`
+- After HTML/CSS/JS changes run `npm run build`
+- Read the nearest `AGENTS.md` before editing

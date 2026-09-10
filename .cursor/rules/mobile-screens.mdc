@@ -1,0 +1,15 @@
+---
+description: HTML-first mobile onboarding and login screens
+globs: features/mobile/**/*.{html,css,js}
+alwaysApply: false
+---
+
+# Mobile screens
+
+Edit the screen HTML for layout. Keep behavior in the colocated `.js` and styles in the colocated `.css`.
+
+- Preserve `data-goto`, `data-screen`, and `data-landing-*` hooks
+- Complete-profile dropdowns and document sheet stay in `onboarding/shared/`
+- AI verify and account lock stay in `complete-documents/`
+- Login is linked from landing; do not add it to the onboarding stepper unless asked
+- Do not reintroduce JS-rendered markup for these screens

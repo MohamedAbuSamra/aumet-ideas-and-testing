@@ -1,0 +1,237 @@
+    /* My Pharmacy hub */
+    .mp {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #f8fafc;
+      color: #1e293b;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .mp-hero {
+      flex-shrink: 0;
+      padding: 0 14px 18px;
+      background: linear-gradient(105deg, #04bca6 0%, #2f7dff 100%);
+      color: #fff;
+      border-radius: 0 0 22px 22px;
+    }
+    .mp-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 2px 0;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .mp-status .home-status-icons { color: #fff; }
+    .mp-topbar {
+      display: grid;
+      grid-template-columns: 40px 1fr 40px;
+      align-items: center;
+      padding: 8px 0 14px;
+    }
+    .mp-topbar h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .mp-back {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      border-radius: 50%;
+      background: transparent;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      padding: 0;
+    }
+    .mp-back svg { width: 18px; height: 18px; }
+    .mp-pharmacy-card {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #fff;
+      border-radius: 16px;
+      color: #1e293b;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+    }
+    .mp-pharm-ico {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: #e6faf7;
+      color: var(--teal);
+      display: grid;
+      place-items: center;
+    }
+    .mp-pharm-ico svg { width: 28px; height: 28px; }
+    .mp-pharm-meta {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .mp-pharm-meta strong {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .mp-pharm-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .mp-pin { width: 12px; height: 12px; color: #94a3b8; }
+    .mp-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .mp-badge.is-incomplete {
+      background: #ffedd5;
+      color: #ea580c;
+    }
+    .mp-body {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      padding: 14px 14px 20px;
+    }
+    .mp-progress {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      border: none;
+      border-radius: 16px;
+      background: #e6faf7;
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+      color: inherit;
+    }
+    .mp-ring {
+      --p: 31;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(#e6faf7 0 57%, transparent 58%),
+        conic-gradient(var(--teal) calc(var(--p) * 1%), #dbe7e5 0);
+    }
+    .mp-ring span {
+      font-size: 11px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .mp-progress-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .mp-progress-copy strong {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .mp-progress-copy span {
+      font-size: 11px;
+      color: #64748b;
+    }
+    .mp-continue {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal);
+      white-space: nowrap;
+    }
+    .mp-list {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .mp-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 44px 1fr auto 16px;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 12px;
+      border: none;
+      border-bottom: 1px solid #eef2f7;
+      background: #fff;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+    }
+    .mp-row:last-child { border-bottom: none; }
+    .mp-row-ico {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+    }
+    .mp-row-ico svg { width: 22px; height: 22px; }
+    .mp-row-ico.is-teal {
+      background: #e6faf7;
+      color: var(--teal);
+    }
+    .mp-row-ico.is-orange {
+      background: #fff7ed;
+      color: #f97316;
+    }
+    .mp-row-meta {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .mp-row-meta strong {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .mp-row-meta span {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .mp-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .mp-status em { font-style: normal; }
+    .mp-status svg { width: 14px; height: 14px; display: block; }
+    .mp-status.is-done { color: #16a34a; }
+    .mp-status.is-done .cp-tab-check { width: 14px; height: 14px; color: #16a34a; }
+    .mp-status.is-pending { color: #ea580c; }
+    .mp-chevron {
+      color: #cbd5e1;
+      display: grid;
+      place-items: center;
+      transform: rotate(-90deg);
+    }
+    .mp-chevron svg { width: 16px; height: 16px; }

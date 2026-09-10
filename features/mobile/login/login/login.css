@@ -1,0 +1,124 @@
+    /* Login — matched to reference login screenshot */
+    .ca-lang-text {
+      border: none;
+      background: transparent;
+      padding: 0;
+      font-size: 13px;
+      font-weight: 500;
+      top: 58px;
+      right: 16px;
+    }
+    .ca-lang-left {
+      left: 16px;
+      right: auto;
+    }
+    .ca-login-screen .ca-title {
+      top: 218px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .ca-login-screen .ca-sub { display: none; }
+
+    .ca-country-chip {
+      position: absolute;
+      left: 12.7px;
+      top: 262px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 34px;
+      padding: 0 10px 0 12px;
+      border: 1px solid #e9edf0;
+      border-radius: 999px;
+      background: #fff;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .ca-country-chip .ca-ico-chevron {
+      width: 12px;
+      height: 12px;
+      color: #8b95a1;
+    }
+
+    .ca-flag-jordan {
+      position: relative;
+      overflow: hidden;
+    }
+    .ca-flag-jordan .ca-flag-stripe.green { background: #007a3d; }
+    .ca-flag-triangle {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-top: 6.5px solid transparent;
+      border-bottom: 6.5px solid transparent;
+      border-left: 10px solid #ce1126;
+    }
+
+    .ca-login-screen .ca-login-id {
+      top: 306px;
+      height: 48px;
+      padding: 0 16px;
+    }
+    .ca-login-screen .ca-login-pass {
+      top: 366px;
+      height: 48px;
+      padding: 0 12px 0 16px;
+    }
+    .ca-login-screen .ca-field input {
+      font-size: 14px;
+    }
+    .ca-login-screen .ca-field input::placeholder {
+      color: #b0b6be;
+    }
+
+    .ca-forgot {
+      position: absolute;
+      right: 18px;
+      top: 424px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-decoration: none;
+    }
+
+    .ca-login-screen .ca-cta {
+      top: 468px;
+      height: 48px;
+      font-size: 16px;
+    }
+    .ca-cta-disabled,
+    .ca-cta:disabled {
+      background: #d5dbe3;
+      color: #fff;
+      cursor: default;
+    }
+
+    .ca-login-screen .ca-login {
+      top: 540px;
+      font-size: 13px;
+      color: #8e949e;
+    }
+    .ca-login-screen .ca-login a {
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .ca-need-help {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 640px;
+      height: auto;
+      margin: 0;
+      border: none;
+      background: transparent;
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }

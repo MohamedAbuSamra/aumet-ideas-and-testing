@@ -1,0 +1,14 @@
+---
+description: HTML-first Pulse POS / dosage-label website screens
+globs: features/website/**/*.{html,css,js}
+alwaysApply: false
+---
+
+# Website screens
+
+Website screens are HTML canvases inside the desktop frame.
+
+- Keep `data-feature-canvas` equal to the screen id (`print-config`, `dosage-library`, `pos-index`)
+- Shared Pulse CSS/helpers live in `pos/shared/`
+- Bind the active canvas from `pos/index.js`
+- Do not move layout back into JavaScript template strings

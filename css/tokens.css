@@ -1,0 +1,23 @@
+    :root {
+      --teal: #04bca6;
+      --teal-dark: #03a894;
+      --teal-light: #e8f8f5;
+      --text: #3c495a;
+      --label: #334155;
+      --muted: #a0a6af;
+      --border: #e9edf0;
+      --error: #e53935;
+      --warn: #f4511e;
+      --success: #04bca6;
+      --disabled: #cfd8dc;
+      --radius-input: 999px;
+      --radius-btn: 999px;
+      --phone-scale: 1;
+      --web-scale: 1;
+      --frame-color: #111;
+      --notch-safe: 28px;
+      --ai-purple: #6366f1;
+      --ai-purple-light: #eef2ff;
+      --block-red: #dc2626;
+      --block-red-light: #fef2f2;
+    }

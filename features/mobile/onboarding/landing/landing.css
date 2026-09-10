@@ -1,0 +1,86 @@
+    /* Landing — exact app screenshots + hotspots */
+    .ca-landing {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      overflow: hidden;
+    }
+    .ca-landing-shot {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+      z-index: 1;
+    }
+    .ca-landing-shot.is-active {
+      opacity: 1;
+    }
+    .ca-landing-shot[hidden] {
+      display: block !important;
+    }
+    .ca-landing-hit {
+      position: absolute;
+      z-index: 4;
+      border: none;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+    }
+    .ca-landing-hit-register {
+      left: 5.5%;
+      right: 5.5%;
+      top: 72.8%;
+      height: 6.6%;
+      border-radius: 999px;
+    }
+    .ca-landing-hit-login {
+      left: 5.5%;
+      right: 5.5%;
+      top: 80.4%;
+      height: 6.6%;
+      border-radius: 999px;
+    }
+    .ca-landing-hit-help {
+      left: 28%;
+      right: 28%;
+      top: 88.2%;
+      height: 4%;
+    }
+    .ca-landing-swipe {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 8%;
+      height: 62%;
+      z-index: 3;
+      touch-action: pan-y;
+      cursor: grab;
+    }
+    .ca-landing-dot-hits {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 67.2%;
+      height: 4.2%;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    .ca-landing-dot-hits button {
+      width: 18px;
+      height: 18px;
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+    }

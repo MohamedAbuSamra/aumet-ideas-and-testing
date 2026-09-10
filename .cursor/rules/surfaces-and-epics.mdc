@@ -1,0 +1,13 @@
+---
+description: How surfaces, epics, and hash routes are registered
+globs: js/registry.js,features/**/epics.js,features/**/screens.js,features/**/surface.js
+alwaysApply: false
+---
+
+# Surfaces and epics
+
+- Surface metadata: `features/<surface>/surface.js`
+- Epic chips: `features/<surface>/epics.js`
+- Stepper list: `features/<surface>/<epic>/screens.js`
+- Wire new epics in `js/registry.js` (`EPIC_SCREENS`)
+- Hash shape is `#/<surface>/<epic>/<screen>`

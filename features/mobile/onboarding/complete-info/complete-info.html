@@ -1,0 +1,114 @@
+    <div class="cp">
+      <div class="cp-status">
+        <span>9:41</span>
+        <span class="home-status-icons" aria-hidden="true">
+          <svg viewBox="0 0 18 12"><rect x="0.5" y="7" width="3" height="4.5" rx="0.6" fill="currentColor"/><rect x="5" y="5" width="3" height="6.5" rx="0.6" fill="currentColor"/><rect x="9.5" y="2.5" width="3" height="9" rx="0.6" fill="currentColor"/><rect x="14" y="0.5" width="3" height="11" rx="0.6" fill="currentColor"/></svg>
+          <svg viewBox="0 0 16 12"><path fill="currentColor" d="M8 3.2c1.9 0 3.6.7 4.9 1.9l-1.2 1.2A5.3 5.3 0 0 0 8 4.8c-1.4 0-2.7.5-3.7 1.5L3.1 5.1A7.2 7.2 0 0 1 8 3.2Zm0 3.2c1 0 1.9.4 2.6 1l-1.2 1.2A2.2 2.2 0 0 0 8 8c-.6 0-1.1.2-1.5.6L5.3 7.4A3.8 3.8 0 0 1 8 6.4Zm0 3.1a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6Z"/></svg>
+          <svg viewBox="0 0 25 12"><rect x="0.6" y="1.2" width="19.5" height="9.6" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="2.2" y="2.8" width="15" height="6.4" rx="1.2" fill="currentColor"/><path fill="currentColor" d="M21.2 4.1h1.4a1.6 1.6 0 0 1 0 3.8h-1.4V4.1Z"/></svg>
+        </span>
+      </div>
+
+      <div class="cp-topbar">
+        <button type="button" class="cp-back" data-goto="my-pharmacy" aria-label="Back"><svg class="ca-ico ca-ico-back" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 5.5 8.5 12 15 18.5"/></svg></button>
+        <h1>Complete Profile</h1>
+        <span class="cp-topbar-spacer"></span>
+      </div>
+
+      <div class="cp-tabs"><button type="button" class="cp-tab is-active" data-goto="complete-info">
+        <span class="cp-tab-label"><span class="cp-tab-text">1.Information</span></span>
+        <span class="cp-tab-line"></span>
+      </button><button type="button" class="cp-tab " data-goto="complete-location">
+        <span class="cp-tab-label"><span class="cp-tab-text">2.Location</span></span>
+        <span class="cp-tab-line"></span>
+      </button><button type="button" class="cp-tab " data-goto="complete-documents">
+        <span class="cp-tab-label"><span class="cp-tab-text">3.Documents</span></span>
+        <span class="cp-tab-line"></span>
+      </button></div>
+
+      <div class="cp-scroll ">
+        
+        <h2 class="cp-section">Pharmacy Information</h2>
+
+        <button type="button" class="cp-upload" data-demo="upload-logo">
+          <span class="cp-upload-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="9" cy="10.5" r="1.6" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="m6.5 16.5 3.2-3.4 2.4 2.3 3-3.4 3.4 4.5"/></svg>
+          </span>
+          <span>Upload Photo or File</span>
+        </button>
+
+        <label class="cp-field">
+          <span>Pharmacy Name <em>*</em></span>
+          <input type="text" value="Omar Pharmacy" />
+        </label>
+
+        <label class="cp-field">
+          <span>Pharmacy Legal Name <em>*</em></span>
+          <input type="text" value="Omar Pharmacy" />
+        </label>
+
+        <label class="cp-field">
+          <span>Phone Number <em>*</em></span>
+          <div class="cp-phone">
+            <div class="cp-dropdown cp-cc-dropdown" data-dropdown="country-code">
+              <button type="button" class="ca-cc cp-dropdown-trigger" aria-label="Country code" aria-haspopup="listbox" aria-expanded="false">
+                <span class="cp-cc-flag"><span class="ca-flag" aria-hidden="true"><span class="ca-flag-stripe red"></span><span class="ca-flag-stripe white"><span class="ca-flag-eagle"></span></span><span class="ca-flag-stripe black"></span></span></span>
+                <span class="cp-dropdown-value ca-cc-code" data-code="+20">+20</span>
+                <svg class="ca-ico ca-ico-chevron" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m7 10 5 5 5-5"/></svg>
+              </button>
+              <div class="cp-dropdown-menu" role="listbox" hidden>
+                <button type="button" class="cp-dropdown-option is-selected" data-value="+20" data-flag="eg" role="option"><span class="ca-flag" aria-hidden="true"><span class="ca-flag-stripe red"></span><span class="ca-flag-stripe white"><span class="ca-flag-eagle"></span></span><span class="ca-flag-stripe black"></span></span> Egypt (+20)</button>
+                <button type="button" class="cp-dropdown-option" data-value="+962" data-flag="jo" role="option"><span class="ca-flag ca-flag-jordan" aria-hidden="true"><span class="ca-flag-stripe black"></span><span class="ca-flag-stripe white"></span><span class="ca-flag-stripe green"></span><span class="ca-flag-triangle"></span></span> Jordan (+962)</button>
+              </div>
+            </div>
+            <span class="ca-cc-divider" aria-hidden="true"></span>
+            <input type="tel" placeholder="Phone number" />
+          </div>
+        </label>
+
+        <label class="cp-field">
+          <span>Email Address <em>*</em></span>
+          <input type="email" value="Omarmohamed12@gmail.com" />
+        </label>
+
+        <h2 class="cp-section">Business Details (Optional)</h2>
+
+        <label class="cp-field">
+          <span>Pharmacy Type</span>
+          
+    <div class="cp-dropdown" data-dropdown="pharmacy-type">
+      <button type="button" class="cp-select cp-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+        <span class="cp-dropdown-value">Individual</span>
+        <svg class="ca-ico ca-ico-chevron" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m7 10 5 5 5-5"/></svg>
+      </button>
+      <div class="cp-dropdown-menu" role="listbox" hidden>
+        <button type="button" class="cp-dropdown-option is-selected" data-value="Individual" role="option">Individual</button><button type="button" class="cp-dropdown-option" data-value="Chain" role="option">Chain</button><button type="button" class="cp-dropdown-option" data-value="Hospital" role="option">Hospital</button><button type="button" class="cp-dropdown-option" data-value="Clinic" role="option">Clinic</button>
+      </div>
+    </div>
+        </label>
+
+        <label class="cp-field">
+          <span>Trade License Number</span>
+          <input type="text" value="23245" />
+        </label>
+
+        <label class="cp-field">
+          <span>Preferred Distributors</span>
+          
+    <div class="cp-dropdown is-multi" data-dropdown="distributors" data-multi="true">
+      <button type="button" class="cp-select cp-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+        <span class="cp-dropdown-chips"><span class="cp-chip" data-chip="Eva Pharam">Eva Pharam <button type="button" data-remove-chip="Eva Pharam" aria-label="Remove">×</button></span></span>
+        <svg class="ca-ico ca-ico-chevron" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m7 10 5 5 5-5"/></svg>
+      </button>
+      <div class="cp-dropdown-menu" role="listbox" hidden>
+        <button type="button" class="cp-dropdown-option is-selected" data-value="Eva Pharam" role="option">Eva Pharam</button><button type="button" class="cp-dropdown-option" data-value="Ibn Sina" role="option">Ibn Sina</button><button type="button" class="cp-dropdown-option" data-value="Pharma Care" role="option">Pharma Care</button><button type="button" class="cp-dropdown-option" data-value="Med Pharma" role="option">Med Pharma</button>
+      </div>
+    </div>
+        </label>
+      </div>
+
+      <div class="cp-footer">
+        <button type="button" class="ca-cta cp-cta" data-goto="complete-location">Save &amp; Continue</button>
+      </div>
+
+      
+    </div>
